@@ -169,6 +169,14 @@
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="label-float">
+                    <input type="email" name="email" required>
+                    <label for="email">Email:</label>
+                </div>
+                <div class="label-float">
+                    <input type="password" name="password" required>
+                    <label for="password">Senha:</label>
+                </div>
+                <div class="label-float">
                     <input type="text" name="nome" required>
                     <label for="nome">Nome:</label>
                 </div>
@@ -183,14 +191,6 @@
                 <div class="label-float">
                     <input type="text" name="endereco" required>
                     <label for="endereco">Endereço:</label>
-                </div>
-                <div class="label-float">
-                    <input type="email" name="email" required>
-                    <label for="email">Email:</label>
-                </div>
-                <div class="label-float">
-                    <input type="password" name="password" required>
-                    <label for="password">Senha:</label>
                 </div>
                 <div class="label-float">
                     <input type="password" name="password_confirmation" required>

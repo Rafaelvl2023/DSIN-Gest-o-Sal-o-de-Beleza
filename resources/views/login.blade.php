@@ -15,7 +15,7 @@
         }
 
         body {
-            background-image: url(https://img.freepik.com/fotos-gratis/renderizacao-3d-de-fundo-de-textura-hexagonal_23-2150796421.jpg);
+            background-image: url(https://dompel.pt/wp-content/uploads/2021/10/Cabeleireiro-Profissional.jpg);
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
