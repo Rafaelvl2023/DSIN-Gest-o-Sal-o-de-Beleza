@@ -17,7 +17,7 @@ class CreateUsuariosTable extends Migration
             $table->string('telefone', 15);
             $table->string('email')->unique();
             $table->string('senha');
-            $table->enum('status', ['admin', 'cliente']);
+            $table->enum('status', ['admin', 'cliente'])->default('cliente');
             $table->date('data_nascimento')->nullable();
             $table->text('endereco')->nullable();
             $table->timestamps();
