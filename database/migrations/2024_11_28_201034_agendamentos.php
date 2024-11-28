@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('agendamentos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
-            $table->foreignId('servico_id')->constrained('servicos')->onDelete('cascade');
+            $table->json('servico_ids');
             $table->dateTime('data_agendamento');
             $table->enum('status', ['pendente', 'confirmado', 'cancelado'])->default('pendente');
             $table->text('observacoes')->nullable();
