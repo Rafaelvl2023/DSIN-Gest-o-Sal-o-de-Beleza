@@ -288,8 +288,74 @@
                         </div>
                     </div>
                     <div class="col-lg-12 content" id="variados" style="display: none;">
-                        <h1>Gastos Variados</h1>
-                        <p>Gerencie gastos variados como compras e despesas inesperadas.</p>
+                        <div class="container">
+                            <h1>Cadastrar Novo Gasto Variado</h1>
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            <form action="{{ route('gastos_variados.store') }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="nome">Nome do Gasto</label>
+                                    <input type="text" id="nome" name="nome" class="form-control" value="{{ old('nome') }}" required>
+                                    @error('nome')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="valor">Valor</label>
+                                    <input type="number" step="0.01" id="valor" name="valor" class="form-control" value="{{ old('valor') }}" required>
+                                    @error('valor')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="categoria">Categoria</label>
+                                    <select id="categoria" name="categoria" class="form-control" required>
+                                        <option value="compras">Compras</option>
+                                        <option value="despesas_imprevistas">Despesas Imprevistas</option>
+                                        <option value="alimentacao">Alimentação</option>
+                                        <option value="transporte">Transporte</option>
+                                        <option value="manutencao">Manutenção</option>
+                                        <option value="saude">Saúde</option>
+                                        <option value="educacao">Educação</option>
+                                        <option value="diversao">Diversão</option>
+                                        <option value="cultura">Cultura</option>
+                                        <option value="viagem">Viagem</option>
+                                        <option value="presentes">Presentes</option>
+                                        <option value="comunicacao">Comunicação</option>
+                                        <option value="impostos">Impostos</option>
+                                        <option value="outros">Outros</option>
+                                    </select>
+                                    @error('categoria')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="data">Data</label>
+                                    <input type="date" id="data" name="data" class="form-control" value="{{ old('data') }}" required>
+                                    @error('data')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="descricao">Descrição (Opcional)</label>
+                                    <textarea id="descricao" name="descricao" class="form-control">{{ old('descricao') }}</textarea>
+                                    @error('descricao')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Cadastrar Gasto</button>
+                            </form>
+                        </div>
                     </div>
                     <div class="col-lg-12 content" id="servicos">
                         <div class="container mt-5">
