@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\GastosFixosController;
+use App\Models\GastosVariadosController;
 
 Route::get('/', [AuthController::class, 'index'])->name('login.form');
 
@@ -24,3 +25,5 @@ Route::middleware('auth')->group(function () {
 Route::resource('servicos', ServicoController::class);
 
 Route::resource('gastos_fixos', GastosFixosController::class);
+
+Route::resource('gastos_variados', GastosVariadosController::class);
