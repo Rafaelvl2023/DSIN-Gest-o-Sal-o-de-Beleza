@@ -177,7 +177,7 @@
                     <label for="password">Senha:</label>
                 </div>
                 <div class="button">
-                    <button type="submit">Login</button>
+                    <button type="submit">Entrar</button>
                 </div>
                 <div>
                     @if (session('success'))
