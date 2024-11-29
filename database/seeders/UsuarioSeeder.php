@@ -16,7 +16,7 @@ class UsuarioSeeder extends Seeder
             'senha' => bcrypt('Gestao@2024'),
             'status' => 'admin',
             'data_nascimento' => '1984-07-07',
-            'endereco' => 'Rua das Flores, 123 - Centro, São Paulo, SP',
+            'endereco' => 'R. Eugênio Pessine, 73 - Jardim Itaipu, Marília - SP',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
