@@ -22,6 +22,8 @@ class CreateUsuariosTable extends Migration
             $table->text('endereco')->nullable();
             $table->timestamps();
         });
+
+        Artisan::call('db:seed', ['--class' => 'UsuarioSeeder']);
     }
 
     /**
