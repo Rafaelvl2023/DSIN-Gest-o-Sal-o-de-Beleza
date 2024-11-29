@@ -20,10 +20,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::resource('servicos', ServicoController::class);
+
+    Route::resource('gastos_fixos', GastosFixosController::class);
+
+    Route::resource('gastos_variados', GastosVariadosController::class);
 });
-
-Route::resource('servicos', ServicoController::class);
-
-Route::resource('gastos_fixos', GastosFixosController::class);
-
-Route::resource('gastos_variados', GastosVariadosController::class);

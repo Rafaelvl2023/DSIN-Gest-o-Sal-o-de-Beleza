@@ -177,6 +177,10 @@
                     <label for="password">Senha:</label>
                 </div>
                 <div class="label-float">
+                    <input type="password" name="password_confirmation" required>
+                    <label for="password_confirmation">Confirme a Senha:</label>
+                </div>
+                <div class="label-float">
                     <input type="text" name="nome" required>
                     <label for="nome">Nome:</label>
                 </div>
@@ -192,10 +196,7 @@
                     <input type="text" name="endereco" required>
                     <label for="endereco">Endereço:</label>
                 </div>
-                <div class="label-float">
-                    <input type="password" name="password_confirmation" required>
-                    <label for="password_confirmation">Confirme a Senha:</label>
-                </div>
+                <input type="hidden" name="status" value="cliente">
                 <div class="button">
                     <button type="submit">Cadastrar</button>
                 </div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsuariosTable extends Migration
+class  CreateUsuariosTableV2 extends Migration
 {
     /**
      * Executa a criação da tabela de usuários.
