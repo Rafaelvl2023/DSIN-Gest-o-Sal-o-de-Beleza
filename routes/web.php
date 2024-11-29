@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\GastosFixosController;
-use App\Models\GastosVariadosController;
+use App\Http\Controllers\GastosVariadosController;
 
 Route::get('/', [AuthController::class, 'index'])->name('login.form');
 
