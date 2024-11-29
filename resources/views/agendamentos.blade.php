@@ -21,7 +21,12 @@
     </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
+    <h1>Agendamentos TESTE</h1>
+    {{-- <div class="container mt-5">
         <div class="form-container mx-auto">
             <h1 class="text-center mb-4">Agendamento de Serviço</h1>
 
@@ -55,7 +60,7 @@
 
         <div class="form-container mx-auto mt-5">
             <h1 class="text-center mb-4">Agendamentos</h1>
-            
+
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -78,11 +83,11 @@
                             <td>{{ \Carbon\Carbon::parse($agendamento->data_agendamento)->format('d/m/Y H:i') }}</td>
                             <td>{{ ucfirst($agendamento->status) }}</td>
                             <td>
-                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editarModal" 
-                                        data-id="{{ $agendamento->id }}" 
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editarModal"
+                                        data-id="{{ $agendamento->id }}"
                                         data-servicos="{{ implode(',', json_decode($agendamento->servico_ids)) }}"
-                                        data-data="{{ $agendamento->data_agendamento }}" 
-                                        data-status="{{ $agendamento->status }}" 
+                                        data-data="{{ $agendamento->data_agendamento }}"
+                                        data-status="{{ $agendamento->status }}"
                                         data-observacoes="{{ $agendamento->observacoes }}">
                                     Editar
                                 </button>
@@ -107,9 +112,9 @@
                     <form method="POST" action="{{ route('agendamentos.update', '') }}" id="form-editar-agendamento">
                         @csrf
                         @method('PUT')
-                        
+
                         <input type="hidden" id="agendamento-id" name="id">
-                        
+
                         <div class="form-group">
                             <label>Serviços</label><br>
                             @foreach($servicos as $servico)
@@ -146,7 +151,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -160,7 +165,7 @@
             var dataAgendamento = button.data('data');
             var status = button.data('status');
             var observacoes = button.data('observacoes');
-            
+
             var modal = $(this);
             modal.find('#agendamento-id').val(agendamentoId);
             modal.find('#data_agendamento').val(dataAgendamento);

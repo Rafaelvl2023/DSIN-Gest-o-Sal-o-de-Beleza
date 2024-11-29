@@ -173,8 +173,8 @@
                     <label for="email">Email:</label>
                 </div>
                 <div class="label-float">
-                    <input type="password" name="password" required>
-                    <label for="password">Senha:</label>
+                    <input type="senha" name="senha" required>
+                    <label for="senha">Senha:</label>
                 </div>
                 <div class="button">
                     <button type="submit">Entrar</button>

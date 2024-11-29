@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Usuario;
+use App\Models\Usuarios;
 
 class AuthController extends Controller
 {
@@ -22,12 +22,21 @@ class AuthController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required',
+            'senha' => 'required',
         ]);
 
-        if (Auth::attempt($request->only('email', 'password'))) {
+        $usuario = Usuarios::where('email', $request->email)->first();
+
+        if ($usuario && Hash::check($request->senha, $usuario->senha)) {
+            Auth::login($usuario);
+
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard')->with('success', 'Login realizado com sucesso!');
+
+            if ($usuario->status === 'admin') {
+                return redirect()->route('dashboard')->with('success', 'Bem-vindo à área administrativa!');
+            }
+
+            return redirect()->route('agendamentos.index')->with('success', 'Login realizado com sucesso!');
         }
 
         return back()->withErrors([
@@ -70,7 +79,7 @@ class AuthController extends Controller
             'password.regex' => 'A senha deve conter pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial.',
         ]);
 
-        Usuario::create([
+        Usuarios::create([
             'nome' => $request->nome,
             'telefone' => $request->telefone,
             'email' => $request->email,

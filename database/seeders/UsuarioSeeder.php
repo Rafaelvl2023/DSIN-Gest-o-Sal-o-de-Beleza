@@ -13,7 +13,7 @@ class UsuarioSeeder extends Seeder
             'nome' => 'Leila Regina Carvalho',
             'telefone' => '14982225813',
             'email' => 'leila@gmail.com',
-            'senha' => bcrypt('gestao@2024'),
+            'senha' => bcrypt('Gestao@2024'),
             'status' => 'admin',
             'data_nascimento' => '1984-07-07',
             'endereco' => 'Rua das Flores, 123 - Centro, São Paulo, SP',

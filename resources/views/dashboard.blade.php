@@ -177,6 +177,10 @@
 </head>
 
 <body>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
     <nav class="navbar navbar-default no-margin">
         <div class="navbar-header fixed-brand">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle">
@@ -200,19 +204,19 @@
             <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
                 <li>
                     <a href="#" onclick="showContent('dashboard')">
-                        <span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x"></i></span> 
+                        <span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x"></i></span>
                         Dashboard
                     </a>
                 </li>
                 <li>
                     <a href="#" onclick="showContent('agendamentos')">
-                        <span class="fa-stack fa-lg pull-left"><i class="fa fa-calendar fa-stack-1x"></i></span> 
+                        <span class="fa-stack fa-lg pull-left"><i class="fa fa-calendar fa-stack-1x"></i></span>
                         Agendamentos
                     </a>
                 </li>
                 <li class="active">
                     <a href="#" onclick="showContent('registro-gastos')">
-                        <span class="fa-stack fa-lg pull-left"><i class="fa fa-dollar fa-stack-1x"></i></span> 
+                        <span class="fa-stack fa-lg pull-left"><i class="fa fa-dollar fa-stack-1x"></i></span>
                         Registro Gastos
                     </a>
                     <ul class="nav-pills nav-stacked" style="list-style-type:none;">
@@ -222,7 +226,7 @@
                 </li>
                 <li>
                     <a href="#" onclick="showContent('servicos')">
-                        <span class="fa-stack fa-lg pull-left"><i class="fa fa-calendar fa-stack-1x"></i></span> 
+                        <span class="fa-stack fa-lg pull-left"><i class="fa fa-calendar fa-stack-1x"></i></span>
                         Cadastro Serviços
                     </a>
                 </li>
@@ -249,7 +253,7 @@
                             <h1>Cadastrar Novo Gasto Fixo</h1>
                             <form action="{{ route('gastos_fixos.store') }}" method="POST">
                                 @csrf
-                                
+
                                 <label for="nome">Nome:</label>
                                 <input type="text" name="nome" id="nome" required><br><br>
 
