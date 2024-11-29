@@ -177,7 +177,6 @@
 </head>
 
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-default no-margin">
         <div class="navbar-header fixed-brand">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle">
@@ -196,9 +195,7 @@
         </div>
     </nav>
 
-    <!-- Wrapper -->
     <div id="wrapper">
-        <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
                 <li>
@@ -232,11 +229,9 @@
             </ul>
         </div>
 
-        <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid xyz">
                 <div class="row">
-                    <!-- Conteúdo dinâmico -->
                     <div class="col-lg-12 content" id="dashboard">
                         <h1>Dashboard</h1>
                         <p>Bem-vindo ao painel de controle. Aqui você pode visualizar os dados gerais do sistema.</p>
@@ -250,8 +245,47 @@
                         <p>Controle seus gastos fixos e variados nesta seção.</p>
                     </div>
                     <div class="col-lg-12 content" id="fixos" style="display: none;">
-                        <h1>Gastos Fixos</h1>
-                        <p>Visualize e registre gastos fixos como aluguel e contas mensais.</p>
+                        <div>
+                            <h1>Cadastrar Novo Gasto Fixo</h1>
+                            <form action="{{ route('gastos_fixos.store') }}" method="POST">
+                                @csrf
+                                
+                                <label for="nome">Nome:</label>
+                                <input type="text" name="nome" id="nome" required><br><br>
+
+                                <label for="valor">Valor:</label>
+                                <input type="number" name="valor" id="valor" step="0.01" required><br><br>
+
+                                <label for="categoria">Categoria:</label>
+                                <select name="categoria" id="categoria" required>
+                                    <option value="aluguel">Aluguel</option>
+                                    <option value="salarios">Salários</option>
+                                    <option value="energia">Energia</option>
+                                    <option value="agua">Água</option>
+                                    <option value="internet">Internet</option>
+                                    <option value="telefone">Telefone</option>
+                                    <option value="manutencao">Manutenção</option>
+                                    <option value="seguros">Seguros</option>
+                                    <option value="publicidade">Publicidade</option>
+                                </select><br><br>
+
+                                <label for="data_vencimento">Data de Vencimento:</label>
+                                <input type="date" name="data_vencimento" id="data_vencimento" required><br><br>
+
+                                <label for="recorrencia">Recorrência:</label>
+                                <select name="recorrencia" id="recorrencia" required>
+                                    <option value="mensal">Mensal</option>
+                                    <option value="anual">Anual</option>
+                                    <option value="semanal">Semanal</option>
+                                    <option value="diaria">Diária</option>
+                                </select><br><br>
+
+                                <label for="descricao">Descrição:</label>
+                                <textarea name="descricao" id="descricao"></textarea><br><br>
+
+                                <button type="submit">Cadastrar</button>
+                            </form>
+                        </div>
                     </div>
                     <div class="col-lg-12 content" id="variados" style="display: none;">
                         <h1>Gastos Variados</h1>
@@ -293,12 +327,10 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        // Alternar entre telas dinâmicas
         function showContent(contentId) {
             document.querySelectorAll('.content').forEach(function (content) {
                 content.style.display = 'none';
@@ -306,7 +338,6 @@
             document.getElementById(contentId).style.display = 'block';
         }
 
-        // Menu Toggle
         $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
