@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Sidebar</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
@@ -222,6 +223,12 @@
                         <li><a href="#" onclick="showContent('variados')">Variados</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#" onclick="showContent('servicos')">
+                        <span class="fa-stack fa-lg pull-left"><i class="fa fa-calendar fa-stack-1x"></i></span> 
+                        Cadastro Serviços
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -250,12 +257,46 @@
                         <h1>Gastos Variados</h1>
                         <p>Gerencie gastos variados como compras e despesas inesperadas.</p>
                     </div>
+                    <div class="col-lg-12 content" id="servicos">
+                        <div class="container mt-5">
+                            <h1 class="text-center mb-4">Cadastrar Novo Serviço</h1>
+
+                            <form method="POST" action="{{ route('servicos.store') }}">
+                                @csrf
+
+                                <div class="form-group">
+                                    <label for="nome">Nome</label>
+                                    <input type="text" class="form-control" id="nome" name="nome" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="descricao">Descrição</label>
+                                    <textarea class="form-control" id="descricao" name="descricao"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="duracao">Duração (em minutos)</label>
+                                    <input type="number" class="form-control" id="duracao" name="duracao" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="preco">Preço</label>
+                                    <input type="number" step="0.01" class="form-control" id="preco" name="preco" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         // Alternar entre telas dinâmicas
         function showContent(contentId) {

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ServicoController;
 
 Route::get('/', [AuthController::class, 'index'])->name('login.form');
 
@@ -18,3 +19,5 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::resource('servicos', ServicoController::class);
