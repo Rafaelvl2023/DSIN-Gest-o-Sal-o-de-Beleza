@@ -210,7 +210,7 @@
             /* display: flex;
             justify-content: center;
             align-items: center; */
-            text-align: center;
+            /* text-align: center; */
         }
 
         .form-container {
@@ -259,7 +259,7 @@
     </nav>
     <div class="total">
         <div class="form-container container col-md-6 mt-5">
-            <h3 class="text-center mb-4">Agendamento de Serviços</h3>
+            <h4 class="text-center mb-4">Agende seu serviço agora</h4>
 
             <form method="POST" action="{{ route('agendamentos.store') }}">
                 @csrf
@@ -297,8 +297,8 @@
                 </div>
             </form>
         </div>
-        <div style="background-color: #fff">
-            <h1 class="text-center my-4">Agendamentos</h1>
+        <div class="container" style="background-color:  rgba(255, 255, 255, 0.842);">
+            <h4 class="text-center my-4">Agendamentos Cadastrados</h4>
             <!-- Exibindo a lista de agendamentos -->
             <table class="table table-striped table-bordered table-hover">
                 <thead class="thead-dark">

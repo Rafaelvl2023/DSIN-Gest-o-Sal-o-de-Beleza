@@ -25,18 +25,6 @@ class AgendamentoController extends Controller
         return view('agendamentos', compact('agendamentos', 'servicos'));
     }
 
-    public function buscaServicos()
-    {
-        // Obtém todos os serviços cadastrados
-        $servicos = Servico::all();
-
-        // Exibe os dados para depuração
-        dd($servicos);
-
-        // Retorna a view com os serviços (não será executado enquanto o dd existir)
-        return view('agendamentos', compact('servicos'));
-    }
-
     public function create()
     {
         $servicos = Servico::all();
@@ -67,7 +55,6 @@ class AgendamentoController extends Controller
                 'servico_ids' => json_encode($request->servico_ids),
                 'data_agendamento' => $request->data_agendamento,
             ]);
-            // dd($request->all());
 
             return redirect()->route('agendamentos.index')->with('success', 'Agendamento criado com sucesso!');
         } catch (\Exception $e) {
