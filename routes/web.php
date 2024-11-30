@@ -25,6 +25,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('/dashboard', [ServicoController::class, 'index'])->name('dashboard');
+
     Route::resource('servicos', ServicoController::class);
     Route::resource('gastos_fixos', GastosFixosController::class);
     Route::resource('gastos_variados', GastosVariadosController::class);

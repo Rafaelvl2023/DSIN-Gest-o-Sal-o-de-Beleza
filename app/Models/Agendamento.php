@@ -13,7 +13,6 @@ class Agendamento extends Model
 
     protected $fillable = [
         'usuario_id',
-        'servico_id',
         'data_agendamento',
         'status',
         'observacoes',
@@ -24,14 +23,14 @@ class Agendamento extends Model
      */
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'usuario_id');
+        return $this->belongsTo(Usuarios::class, 'usuario_id');
     }
 
     /**
-     * Relacionamento com o modelo Servico.
+     * Relacionamento muitos-para-muitos com o modelo Servico.
      */
-    public function servico()
+    public function servicos()
     {
-        return $this->belongsTo(Servico::class, 'servico_id');
+        return $this->belongsToMany(Servico::class, 'agendamento_servico', 'agendamento_id', 'servico_id');
     }
 }

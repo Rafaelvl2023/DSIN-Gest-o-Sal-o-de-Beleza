@@ -218,11 +218,11 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <div class="hori-selector">
+                {{-- <div class="hori-selector">
                     <div class="left"></div>
                     <div class="right"></div>
                 </div>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="#agendamentos" onclick="showSection('agendamentos')"><i
                             class="far fa-address-book"></i>Agendamentos</a>
                 </li>
@@ -242,7 +242,33 @@
                     <a class="nav-link" href="#servicos" onclick="showSection('servicos')">
                         <i class="far fa-chart-bar"></i>Serviços
                     </a>
+                </li> --}}
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" onclick="showSection('agendamentos')">
+                        <i class="far fa-address-book"></i>Agendamentos
+                    </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" onclick="showSection('dashboard')">
+                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" onclick="showSection('gastosFixos')">
+                        <i class="far fa-clone"></i>Gastos Fixos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" onclick="showSection('gastosVariados')">
+                        <i class="far fa-gastosVariados-alt"></i>Gastos Variados
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" onclick="showSection('servicos')">
+                        <i class="far fa-chart-bar"></i>Serviços
+                    </a>
+                </li>
+
 
                 <!-- Botão Sair alinhado à direita -->
                 <li class="nav-item ml-auto">
@@ -354,7 +380,7 @@
             document.getElementById('precogastosFixos').addEventListener('keydown', function(e) {
                 if (e.key === "Backspace" || e.key === "Delete") {
                     let value = e.target.value.replace('R$', '').replace(/\D/g,
-                    '');
+                        '');
 
                     if (!value) {
                         e.target.value = '';
@@ -393,8 +419,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">R$</span>
                             </div>
-                            <input type="text" class="form-control border-info" id="precogastosVariados" name="preco"
-                                required>
+                            <input type="text" class="form-control border-info" id="precogastosVariados"
+                                name="preco" required>
                         </div>
                         @error('precogastosVariados')
                             <div class="text-danger">{{ $message }}</div>
@@ -462,7 +488,7 @@
             document.getElementById('precogastosVariados').addEventListener('keydown', function(e) {
                 if (e.key === "Backspace" || e.key === "Delete") {
                     let value = e.target.value.replace('R$', '').replace(/\D/g,
-                    '');
+                        '');
 
                     if (!value) {
                         e.target.value = '';
@@ -482,14 +508,16 @@
                 <div class="row">
                     <div class="col-md-8 form-group">
                         <label for="nome">Nome:</label>
-                        <input type="text" class="form-control border-info" id="nome" name="nome" required>
+                        <input type="text" class="form-control border-info" id="nome" name="nome"
+                            required>
                         @error('nome')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-md-2 form-group">
                         <label for="duracao">Duração:</label>
-                        <input type="text" class="form-control border-info" id="duracao" name="duracao" required>
+                        <input type="text" class="form-control border-info" id="duracao" name="duracao"
+                            required>
                         @error('duracao')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -500,7 +528,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">R$</span>
                             </div>
-                            <input type="text" class="form-control border-info" id="preco" name="preco" required>
+                            <input type="text" class="form-control border-info" id="preco" name="preco"
+                                required>
                         </div>
                         @error('preco')
                             <div class="text-danger">{{ $message }}</div>
@@ -518,12 +547,49 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
             </form>
-            <h1>Lista de Serviços</h1>
-            <ul>
-                @foreach ($servicos as $servico)
-                    <li>{{ $servico->nome }} - R$ {{ $servico->preco }}</li>
-                @endforeach
-            </ul>
+            <div class="container mt-5">
+                <h1>Lista de Serviços</h1>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome do Serviço</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Duração (Horas)</th>
+                            <th scope="col">Preço</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($servicos as $servico)
+                            <tr>
+                                <td>{{ $servico->nome }}</td>
+                                <td>{{ $servico->descricao }}</td>
+                                <td>{{ $servico->duracao }}</td>
+                                <td>R$ {{ number_format($servico->preco, 2, ',', '.') }}</td>
+                                <td>
+                                    <!-- Botão Editar -->
+                                    <a href="{{ route('servicos.edit', $servico->id) }}"
+                                        class="btn btn-warning btn-sm">Editar</a>
+                                    <!-- Botão Excluir -->
+                                    <form action="{{ route('servicos.destroy', $servico->id) }}" method="POST"
+                                        style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+                <!-- Paginação com Bootstrap -->
+                <div class="d-flex justify-content-center">
+                    {{ $servicos->links('pagination::bootstrap-5') }} <!-- Usando a paginação do Bootstrap 5 -->
+                </div>
+            </div>
+
         </div>
         <script>
             document.getElementById('preco').addEventListener('input', function(e) {
@@ -543,7 +609,7 @@
             document.getElementById('preco').addEventListener('keydown', function(e) {
                 if (e.key === "Backspace" || e.key === "Delete") {
                     let value = e.target.value.replace('R$', '').replace(/\D/g,
-                    '');
+                        '');
 
                     if (!value) {
                         e.target.value = '';
@@ -571,7 +637,9 @@
         <script>
             function showSection(sectionId) {
                 const section = document.getElementById(sectionId);
-                section.scrollIntoView({ behavior: 'smooth' });
+                section.scrollIntoView({
+                    behavior: 'smooth'
+                });
             }
         </script>
     </div>
@@ -587,22 +655,53 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
     </script>
     <script>
-        function showSection(sectionId) {
-            // Hide all sections
-            $('.content-section').hide();
+        // function showSection(sectionId) {
+        //     // Hide all sections
+        //     $('.content-section').hide();
 
-            // Show the selected section
-            $('#' + sectionId).show();
+        //     // Show the selected section
+        //     $('#' + sectionId).show();
 
-            // Update active class on navbar links
-            $('#navbarSupportedContent ul li').removeClass("active");
-            $("a[href='#" + sectionId + "']").parent().addClass('active');
+        //     // Update active class on navbar links
+        //     $('#navbarSupportedContent ul li').removeClass("active");
+        //     $("a[href='#" + sectionId + "']").parent().addClass('active');
+        // }
+
+        // $(document).ready(function() {
+        //     setTimeout(function() {
+        //         test();
+        //     });
+        // });
+
+        // Função para exibir a seção escolhida
+        function showSection(section) {
+            // Esconde todas as seções
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(function(sectionElement) {
+                sectionElement.style.display = 'none';
+            });
+
+            // Exibe a seção desejada
+            const activeSection = document.getElementById(section);
+            if (activeSection) {
+                activeSection.style.display = 'block';
+            }
+
+            // Salva a seção ativa no sessionStorage
+            sessionStorage.setItem('activeSection', section);
         }
 
-        $(document).ready(function() {
-            setTimeout(function() {
-                test();
-            });
+        // Verifica a seção ativa ao carregar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se existe uma seção salva no sessionStorage
+            const activeSection = sessionStorage.getItem('activeSection');
+            if (activeSection) {
+                // Exibe a seção salva
+                showSection(activeSection);
+            } else {
+                // Se não houver nenhuma seção salva, define 'agendamentos' como padrão
+                showSection('agendamentos');
+            }
         });
     </script>
 </body>

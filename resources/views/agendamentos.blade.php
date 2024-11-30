@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +11,14 @@
             margin: 0;
             padding: 0;
         }
+
         body {
             background-image: url(https://institutoanahickmann.com.br/wp-content/uploads/2021/11/cab.jpg);
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
         }
+
         i {
             margin-right: 10px;
         }
@@ -202,24 +205,41 @@
         .content-section {
             display: none;
         }
+
         .total {
-            display: flex;
+            /* display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: center; */
+            text-align: center;
         }
+
         .form-container {
-            background-color: rgba(255, 255, 255, 0.76);
+            background-color: rgba(255, 255, 255, 0.842);
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
+        .checkbox-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+            border: 1px solid #ccc;
+            padding-left: 20px;
+            margin-top: 0px;
+            background-color: #f9f9f9;
+        }
+
+        .checkbox-container.open {
+            max-height: 200px;
+        }
     </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-custom navbar-mainbg">
-        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars text-white"></i>
         </button>
 
@@ -238,35 +258,80 @@
         </div>
     </nav>
     <div class="total">
-        <div class="form-container container mt-5">
+        <div class="form-container container col-md-6 mt-5">
             <h3 class="text-center mb-4">Agendamento de Serviços</h3>
 
             <form method="POST" action="{{ route('agendamentos.store') }}">
                 @csrf
 
-                <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
+                {{-- <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}"> --}}
 
-                <div class="form-group">
-                    <label>Serviços</label><br>
-                    @foreach($servicos as $servico)
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="servico_ids[]" value="{{ $servico->id }}" id="servico{{ $servico->id }}">
-                            <label class="form-check-label" for="servico{{ $servico->id }}">
-                                {{ $servico->nome }}
-                            </label>
+                <input type="hidden" name="status" value="pendente">
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="servicos">Serviços:</label>
+                        <button type="button" id="dropdownButton" class="btn btn-secondary form-control text-left">
+                            Selecione os Serviços
+                        </button>
+                        <div id="checkboxList" class="checkbox-container">
+                            @foreach ($servicos as $servico)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="servico_ids[]"
+                                        value="{{ $servico->id }}" id="servico{{ $servico->id }}">
+                                    <label class="form-check-label" for="servico{{ $servico->id }}">
+                                        {{ $servico->nome }}
+                                    </label>
+                                </div>
+                            @endforeach
                         </div>
-                    @endforeach
-                </div>                               
-
-                <div class="form-group">
-                    <label for="data_agendamento">Data e Hora Desejada</label>
-                    <input type="datetime-local" class="form-control" id="data_agendamento" name="data_agendamento" required>
-                </div>
-
-                <div class="form-group text-center btn-sm">
-                    <button type="submit" class="btn btn-primary btn-sm btn-block">Agendar</button>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="data_agendamento">Data e Hora Desejada</label>
+                        <input type="datetime-local" class="form-control" id="data_agendamento" name="data_agendamento"
+                            required>
+                    </div>
+                    <div class="form-group text-center col-md-3 btn-sm" style="margin-top: 31px;">
+                        <button type="submit" class="btn btn-primary btn-sm btn-block">Agendar</button>
+                    </div>
                 </div>
             </form>
+        </div>
+        <div style="background-color: #fff">
+            <h1 class="text-center my-4">Agendamentos</h1>
+            <!-- Exibindo a lista de agendamentos -->
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="text-center">Usuário</th>
+                        <th class="text-center">Data do Agendamento</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Observações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($agendamentos as $agendamento)
+                        <tr>
+                            <!-- Exibindo o nome do usuário (presumindo que o relacionamento 'usuario' está correto) -->
+                            <td class="text-center">{{ $agendamento->usuario->nome }}</td>
+
+                            <!-- Exibindo a data do agendamento -->
+                            <td class="text-center">{{ \Carbon\Carbon::parse($agendamento->data_agendamento)->format('d/m/Y H:i') }}</td>
+
+                            <!-- Exibindo o status -->
+                            <td class="text-center">{{ $agendamento->status }}</td>
+
+                            <!-- Exibindo as observações -->
+                            <td class="text-center">{{ $agendamento->observacoes }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <!-- Exibindo a paginação -->
+            <div class="d-flex justify-content-center">
+                {{ $agendamentos->links() }}
+            </div>
         </div>
     </div>
 
@@ -275,7 +340,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        $('#editarModal').on('show.bs.modal', function (event) {
+        $('#editarModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var agendamentoId = button.data('id');
             var servicos = button.data('servicos').split(',');
@@ -289,12 +354,29 @@
             modal.find('#status').val(status);
             modal.find('#observacoes').val(observacoes);
 
-            $('input[name="servico_ids[]"]').each(function () {
+            $('input[name="servico_ids[]"]').each(function() {
                 if (servicos.includes($(this).val())) {
                     $(this).prop('checked', true);
                 }
             });
         });
     </script>
+    <script>
+        document.getElementById('dropdownButton').addEventListener('click', function() {
+            const checkboxList = document.getElementById('checkboxList');
+            checkboxList.classList.toggle('open');
+        });
+
+        // Fechar a lista ao clicar fora
+        document.addEventListener('click', function(event) {
+            const dropdownButton = document.getElementById('dropdownButton');
+            const checkboxList = document.getElementById('checkboxList');
+            if (!dropdownButton.contains(event.target) && !checkboxList.contains(event.target)) {
+                checkboxList.classList.remove('open');
+            }
+        });
+    </script>
+
 </body>
+
 </html>

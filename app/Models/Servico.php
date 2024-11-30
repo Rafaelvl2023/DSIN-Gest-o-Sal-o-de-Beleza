@@ -19,10 +19,10 @@ class Servico extends Model
     ];
 
     /**
-     * Relacionamento com agendamentos.
+     * Relacionamento muitos-para-muitos com agendamentos.
      */
     public function agendamentos()
     {
-        return $this->hasMany(Agendamento::class, 'servico_id');
+        return $this->belongsToMany(Agendamento::class, 'agendamento_servico', 'servico_id', 'agendamento_id');
     }
 }

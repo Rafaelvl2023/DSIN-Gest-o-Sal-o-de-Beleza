@@ -10,10 +10,10 @@ class ServicoController extends Controller
     public function index()
     {
         // Pega todos os serviços cadastrados
-        $servicos = Servico::all();
+        $servicos = Servico::paginate(5); // 10 itens por página
 
         // Retorna a view do dashboard com os dados dos serviços
-        return view('dashboard', compact('servicos'));
+        return view('dashboard', compact('servicos'));  // compact('servicos') deve passar a variável corretamente
     }
 
     public function create()
