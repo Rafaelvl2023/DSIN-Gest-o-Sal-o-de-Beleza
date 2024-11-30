@@ -22,9 +22,9 @@ class ServicoController extends Controller
     {
         $request->validate([
             'nome' => 'required|string|max:255',
+            'duracao' => 'required|date_format:H:i', 
+            'preco' => 'required|string',
             'descricao' => 'nullable|string',
-            'duracao' => 'required|integer',
-            'preco' => 'required|numeric',
         ]);
 
         Servico::create($request->all());

@@ -6,14 +6,209 @@
     <title>Agendamentos</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
         body {
             background-image: url(https://institutoanahickmann.com.br/wp-content/uploads/2021/11/cab.jpg);
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
         }
+        i {
+            margin-right: 10px;
+        }
+
+        .navbar-logo {
+            padding: 15px;
+            color: #fff;
+        }
+
+        .navbar-mainbg {
+            background-color: #5161ce;
+            padding: 0px;
+        }
+
+        #navbarSupportedContent {
+            overflow: hidden;
+            position: relative;
+        }
+
+        #navbarSupportedContent ul {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        #navbarSupportedContent ul li a i {
+            margin-right: 10px;
+        }
+
+        #navbarSupportedContent li {
+            list-style-type: none;
+            float: left;
+        }
+
+        #navbarSupportedContent ul li a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 15px;
+            display: block;
+            padding: 20px 20px;
+            transition-duration: 0.6s;
+            transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+        }
+
+        /* Cor vermelha para o link ativo */
+        #navbarSupportedContent>ul>li.active>a {
+            color: rgb(255, 217, 0);
+            background-color: transparent;
+            transition: all 0.7s;
+        }
+
+        #navbarSupportedContent a:not(:only-child):after {
+            content: "\f105";
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 14px;
+            font-family: "Font Awesome 5 Free";
+            display: inline-block;
+            padding-right: 3px;
+            vertical-align: middle;
+            font-weight: 900;
+            transition: 0.5s;
+        }
+
+        #navbarSupportedContent .active>a:not(:only-child):after {
+            transform: rotate(90deg);
+        }
+
+        .hori-selector {
+            display: inline-block;
+            position: absolute;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            transition-duration: 0.6s;
+            transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background-color: #fff;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            margin-top: 10px;
+        }
+
+        .hori-selector .right,
+        .hori-selector .left {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #fff;
+            bottom: 10px;
+        }
+
+        .hori-selector .right {
+            right: -25px;
+        }
+
+        .hori-selector .left {
+            left: -25px;
+        }
+
+        .hori-selector .right:before,
+        .hori-selector .left:before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #5161ce;
+        }
+
+        .hori-selector .right:before {
+            bottom: 0;
+            right: -25px;
+        }
+
+        .hori-selector .left:before {
+            bottom: 0;
+            left: -25px;
+        }
+
+        @media (min-width: 992px) {
+            .navbar-expand-custom {
+                -ms-flex-flow: row nowrap;
+                flex-flow: row nowrap;
+                -ms-flex-pack: start;
+                justify-content: flex-start;
+            }
+
+            .navbar-expand-custom .navbar-nav {
+                -ms-flex-direction: row;
+                flex-direction: row;
+            }
+
+            .navbar-expand-custom .navbar-toggler {
+                display: none;
+            }
+
+            .navbar-expand-custom .navbar-collapse {
+                display: -ms-flexbox !important;
+                display: flex !important;
+                -ms-flex-preferred-size: auto;
+                flex-basis: auto;
+            }
+        }
+
+        @media (max-width: 991px) {
+            #navbarSupportedContent ul li a {
+                padding: 12px 30px;
+            }
+
+            .hori-selector {
+                margin-top: 0px;
+                margin-left: 10px;
+                border-radius: 0;
+                border-top-left-radius: 25px;
+                border-bottom-left-radius: 25px;
+            }
+
+            .hori-selector .left,
+            .hori-selector .right {
+                right: 10px;
+            }
+
+            .hori-selector .left {
+                top: -25px;
+                left: auto;
+            }
+
+            .hori-selector .right {
+                bottom: -25px;
+            }
+
+            .hori-selector .left:before {
+                left: -25px;
+                top: -25px;
+            }
+
+            .hori-selector .right:before {
+                bottom: -25px;
+                left: -25px;
+            }
+        }
+
+        .content-section {
+            display: none;
+        }
+        .total {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         .form-container {
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(255, 255, 255, 0.76);
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -21,14 +216,30 @@
     </style>
 </head>
 <body>
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
-    <h1>Agendamentos TESTE</h1>
-    {{-- <div class="container mt-5">
-        <div class="form-container mx-auto">
-            <h1 class="text-center mb-4">Agendamento de Serviço</h1>
+    <nav class="navbar navbar-expand-custom navbar-mainbg">
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fas fa-bars text-white"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item ml-auto">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="nav-link"
+                            style="background: none; border: none; color: white; padding: 20px 20px; cursor: pointer;">
+                            <i class="fas fa-times"></i> Sair
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="total">
+        <div class="form-container container mt-5">
+            <h3 class="text-center mb-4">Agendamento de Serviços</h3>
 
             <form method="POST" action="{{ route('agendamentos.store') }}">
                 @csrf
@@ -37,121 +248,25 @@
 
                 <div class="form-group">
                     <label>Serviços</label><br>
-                    @foreach($servicos as $servico)
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="servico_ids[]" value="{{ $servico->id }}" id="servico_{{ $servico->id }}">
-                            <label class="form-check-label" for="servico_{{ $servico->id }}">
-                                {{ $servico->nome }}
+                            <input class="form-check-input" type="checkbox" name="servico_ids[]" value="" id="servico">
+                            <label class="form-check-label" for="servico">
+                                <option value="">teste</option>
                             </label>
                         </div>
-                    @endforeach
                 </div>
 
                 <div class="form-group">
-                    <label for="data_agendamento">Data e Hora</label>
+                    <label for="data_agendamento">Data e Hora Desejada</label>
                     <input type="datetime-local" class="form-control" id="data_agendamento" name="data_agendamento" required>
                 </div>
 
-                <div class="form-group text-center">
-                    <button type="submit" class="btn btn-primary btn-lg">Agendar</button>
+                <div class="form-group text-center btn-sm">
+                    <button type="submit" class="btn btn-primary btn-sm btn-block">Agendar</button>
                 </div>
             </form>
         </div>
-
-        <div class="form-container mx-auto mt-5">
-            <h1 class="text-center mb-4">Agendamentos</h1>
-
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Nome do Usuário</th>
-                        <th>Serviços</th>
-                        <th>Data e Hora</th>
-                        <th>Status</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($agendamentos as $agendamento)
-                        <tr>
-                            <td>{{ $agendamento->usuario->name }}</td>
-                            <td>
-                                @foreach(json_decode($agendamento->servico_ids) as $servico_id)
-                                    <span>{{ \App\Models\Servico::find($servico_id)->nome }}</span><br>
-                                @endforeach
-                            </td>
-                            <td>{{ \Carbon\Carbon::parse($agendamento->data_agendamento)->format('d/m/Y H:i') }}</td>
-                            <td>{{ ucfirst($agendamento->status) }}</td>
-                            <td>
-                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editarModal"
-                                        data-id="{{ $agendamento->id }}"
-                                        data-servicos="{{ implode(',', json_decode($agendamento->servico_ids)) }}"
-                                        data-data="{{ $agendamento->data_agendamento }}"
-                                        data-status="{{ $agendamento->status }}"
-                                        data-observacoes="{{ $agendamento->observacoes }}">
-                                    Editar
-                                </button>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
     </div>
-
-    <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editarModalLabel">Editar Agendamento</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ route('agendamentos.update', '') }}" id="form-editar-agendamento">
-                        @csrf
-                        @method('PUT')
-
-                        <input type="hidden" id="agendamento-id" name="id">
-
-                        <div class="form-group">
-                            <label>Serviços</label><br>
-                            @foreach($servicos as $servico)
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="servico_ids[]" value="{{ $servico->id }}" id="servico_{{ $servico->id }}">
-                                    <label class="form-check-label" for="servico_{{ $servico->id }}">
-                                        {{ $servico->nome }}
-                                    </label>
-                                </div>
-                            @endforeach
-                        </div>
-
-                        <div class="form-group">
-                            <label for="data_agendamento">Data e Hora</label>
-                            <input type="datetime-local" class="form-control" id="data_agendamento" name="data_agendamento" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <select class="form-control" id="status" name="status" required>
-                                <option value="pendente">Pendente</option>
-                                <option value="confirmado">Confirmado</option>
-                                <option value="cancelado">Cancelado</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="observacoes">Observações</label>
-                            <textarea class="form-control" id="observacoes" name="observacoes" rows="3"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
