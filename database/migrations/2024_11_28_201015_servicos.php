@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->text('descricao')->nullable();
-            $table->integer('duracao');
+            $table->time('duracao');
             $table->decimal('preco', 10, 2);
             $table->timestamps();
         });

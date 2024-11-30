@@ -74,4 +74,14 @@ class AgendamentoController extends Controller
         $agendamento->delete();
         return redirect()->route('agendamentos.index')->with('success', 'Agendamento excluído com sucesso!');
     }
+
+    public function getAllServicos()
+    {
+        // Busca todos os serviços cadastrados no banco de dados
+        $servicos = Servico::all();
+
+        // Retorna os serviços para uma view ou como resposta JSON
+        return view('agendamentos', compact('servicos')); // Para uma view
+        // return response()->json($servicos); // Caso queira retornar como JSON
+    }
 }

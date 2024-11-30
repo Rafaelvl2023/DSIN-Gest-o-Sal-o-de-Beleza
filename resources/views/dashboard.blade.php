@@ -239,9 +239,11 @@
                             class="far fa-gastosVariados-alt"></i>Gastos Variados</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#servicos" onclick="showSection('servicos')"><i
-                            class="far fa-chart-bar"></i>Serviços</a>
+                    <a class="nav-link" href="#servicos" onclick="showSection('servicos')">
+                        <i class="far fa-chart-bar"></i>Serviços
+                    </a>
                 </li>
+
                 <!-- Botão Sair alinhado à direita -->
                 <li class="nav-item ml-auto">
                     <form method="POST" action="{{ route('logout') }}">
@@ -480,16 +482,14 @@
                 <div class="row">
                     <div class="col-md-8 form-group">
                         <label for="nome">Nome:</label>
-                        <input type="text" class="form-control border-info" id="nome" name="nome"
-                            required>
+                        <input type="text" class="form-control border-info" id="nome" name="nome" required>
                         @error('nome')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-md-2 form-group">
                         <label for="duracao">Duração:</label>
-                        <input type="text" class="form-control border-info" id="duracao" name="duracao"
-                            required>
+                        <input type="text" class="form-control border-info" id="duracao" name="duracao" required>
                         @error('duracao')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -500,8 +500,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">R$</span>
                             </div>
-                            <input type="text" class="form-control border-info" id="preco" name="preco"
-                                required>
+                            <input type="text" class="form-control border-info" id="preco" name="preco" required>
                         </div>
                         @error('preco')
                             <div class="text-danger">{{ $message }}</div>
@@ -519,6 +518,12 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
             </form>
+            <h1>Lista de Serviços</h1>
+            <ul>
+                @foreach ($servicos as $servico)
+                    <li>{{ $servico->nome }} - R$ {{ $servico->preco }}</li>
+                @endforeach
+            </ul>
         </div>
         <script>
             document.getElementById('preco').addEventListener('input', function(e) {
@@ -562,6 +567,12 @@
                     e.target.value = e.target.value.replace(':', '').replace(/\D/g, '').slice(0, 4);
                 }
             });
+        </script>
+        <script>
+            function showSection(sectionId) {
+                const section = document.getElementById(sectionId);
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
         </script>
     </div>
 

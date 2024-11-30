@@ -248,13 +248,15 @@
 
                 <div class="form-group">
                     <label>Serviços</label><br>
+                    @foreach($servicos as $servico)
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="servico_ids[]" value="" id="servico">
-                            <label class="form-check-label" for="servico">
-                                <option value="">teste</option>
+                            <input class="form-check-input" type="checkbox" name="servico_ids[]" value="{{ $servico->id }}" id="servico{{ $servico->id }}">
+                            <label class="form-check-label" for="servico{{ $servico->id }}">
+                                {{ $servico->nome }}
                             </label>
                         </div>
-                </div>
+                    @endforeach
+                </div>                               
 
                 <div class="form-group">
                     <label for="data_agendamento">Data e Hora Desejada</label>
