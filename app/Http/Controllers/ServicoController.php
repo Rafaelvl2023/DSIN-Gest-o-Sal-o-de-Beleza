@@ -15,7 +15,7 @@ class ServicoController extends Controller
         $servicos = Servico::paginate(5); // 10 itens por página
 
         // Retorna a view do dashboard com os dados dos serviços
-        return view('dashboard', compact('servicos','agendamentos'));  // compact('servicos') deve passar a variável corretamente
+        return view('servicos.index', compact('servicos','agendamentos'));  // compact('servicos') deve passar a variável corretamente
     }
 
     public function create()

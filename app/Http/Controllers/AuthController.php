@@ -15,7 +15,7 @@ class AuthController extends Controller
         // Verifica se o usuário está logado
         if (Auth::check()) {
             // Se estiver logado, redireciona para o dashboard
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard.index');
         }
 
         // Se não estiver logado, exibe o formulário de login com mensagem de erro

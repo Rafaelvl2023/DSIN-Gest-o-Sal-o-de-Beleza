@@ -19,7 +19,7 @@ class AgendamentoController extends Controller
 
         $servicos = Servico::paginate(10);
 
-        return view('agendamentos', compact('agendamentos', 'servicos'));
+        return view('agendamentos.index', compact('agendamentos', 'servicos'));
     }
 
     public function create()
@@ -27,6 +27,7 @@ class AgendamentoController extends Controller
         $servicos = Servico::all();
         return view('agendamentos.create', compact('servicos'));
     }
+
     public function store(Request $request)
     {
         try {

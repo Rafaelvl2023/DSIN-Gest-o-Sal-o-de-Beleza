@@ -219,33 +219,30 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="showSection('agendamentos')">
+                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('agendamentos.index') }}'">
                         <i class="far fa-address-book"></i>Agendamentos
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="showSection('dashboard')">
+                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('dashboard.index') }}'">
                         <i class="fas fa-tachometer-alt"></i>Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="showSection('gastosFixos')">
+                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('gastos_fixos.index') }}'">
                         <i class="far fa-clone"></i>Gastos Fixos
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="showSection('gastosVariados')">
+                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('gastos_variados.index') }}'">
                         <i class="far fa-gastosVariados-alt"></i>Gastos Variados
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="showSection('servicos')">
+                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('servicos.index') }}'">
                         <i class="far fa-chart-bar"></i>Serviços
                     </a>
                 </li>
-
-
-                <!-- Botão Sair alinhado à direita -->
                 <li class="nav-item ml-auto">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -273,7 +270,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($agendamentos as $agendamento)
+                    {{-- @foreach ($agendamentos as $agendamento)
                         <tr>
                             <!-- Exibir os serviços associados ao agendamento -->
                             <td>
@@ -301,14 +298,14 @@
                                 </form>
                             </td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
 
             <!-- Paginação com Bootstrap 4 -->
-            <div class="d-flex justify-content-center">
+            {{-- <div class="d-flex justify-content-center">
                 {{ $agendamentos->links('pagination::bootstrap-4') }} <!-- Usando a paginação do Bootstrap 4 -->
-            </div>
+            </div> --}}
         </div>
 
         <!-- Incluir o Bootstrap 4 JS (e jQuery se necessário) -->
@@ -324,6 +321,13 @@
     </div>
 
     <div id="gastosFixos" class="content-section text-center">
+        {{-- @extends('gastos_fixos.index') <!-- Estende o layout base -->
+
+        @section('content')
+
+            <!-- Incluindo o conteúdo da view gastos_variados.index -->
+            @include('gastos_fixos.index') <!-- Inclui o conteúdo da view de gastos variáveis -->
+        @endsection --}}
         <div class="container mt-5">
             <h4 class="text-center mb-4">Cadastrar Novo Gasto Fixo</h4>
             <form action="{{ route('gastos_fixos.store') }}" method="POST">
@@ -469,6 +473,13 @@
     </div>
 
     <div id="gastosVariados" class="content-section text-center">
+        @extends('gastos_variados.index') <!-- Estende o layout base -->
+
+        @section('content')
+
+            <!-- Incluindo o conteúdo da view gastos_variados.index -->
+            @include('gastos_variados.index') <!-- Inclui o conteúdo da view de gastos variáveis -->
+        @endsection
         <div class="container mt-5">
             <h4 class="text-center mb-4">Cadastrar Novo Gasto Variado</h4>
 
@@ -492,41 +503,57 @@
                     </div>
 
                     <div class="col-md-2 form-group">
-                        <label for="preco">Valor:</label>
+                        <label for="valor">Valor:</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">R$</span>
                             </div>
                             <input type="text" class="form-control border-info" id="precogastosVariados"
-                                name="preco" required>
+                                name="valor" value="{{ old('valor') }}" required>
                         </div>
-                        @error('precogastosVariados')
+                        @error('valor')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
+
                     <div class="col-md-2 form-group">
                         <label for="categoria">Categoria:</label>
                         <select id="categoria" name="categoria" class="form-control border-info" required>
                             <option disabled selected>Selecione</option>
-                            <option value="compras">Compras</option>
-                            <option value="despesas_imprevistas">Despesas Imprevistas</option>
-                            <option value="alimentacao">Alimentação</option>
-                            <option value="transporte">Transporte</option>
-                            <option value="manutencao">Manutenção</option>
-                            <option value="saude">Saúde</option>
-                            <option value="educacao">Educação</option>
-                            <option value="diversao">Diversão</option>
-                            <option value="cultura">Cultura</option>
-                            <option value="viagem">Viagem</option>
-                            <option value="presentes">Presentes</option>
-                            <option value="comunicacao">Comunicação</option>
-                            <option value="impostos">Impostos</option>
-                            <option value="outros">Outros</option>
+                            <option value="compras" {{ old('categoria') == 'compras' ? 'selected' : '' }}>Compras
+                            </option>
+                            <option value="despesas_imprevistas"
+                                {{ old('categoria') == 'despesas_imprevistas' ? 'selected' : '' }}>Despesas Imprevistas
+                            </option>
+                            <option value="alimentacao" {{ old('categoria') == 'alimentacao' ? 'selected' : '' }}>
+                                Alimentação</option>
+                            <option value="transporte" {{ old('categoria') == 'transporte' ? 'selected' : '' }}>
+                                Transporte</option>
+                            <option value="manutencao" {{ old('categoria') == 'manutencao' ? 'selected' : '' }}>
+                                Manutenção</option>
+                            <option value="saude" {{ old('categoria') == 'saude' ? 'selected' : '' }}>Saúde</option>
+                            <option value="educacao" {{ old('categoria') == 'educacao' ? 'selected' : '' }}>Educação
+                            </option>
+                            <option value="diversao" {{ old('categoria') == 'diversao' ? 'selected' : '' }}>Diversão
+                            </option>
+                            <option value="cultura" {{ old('categoria') == 'cultura' ? 'selected' : '' }}>Cultura
+                            </option>
+                            <option value="viagem" {{ old('categoria') == 'viagem' ? 'selected' : '' }}>Viagem
+                            </option>
+                            <option value="presentes" {{ old('categoria') == 'presentes' ? 'selected' : '' }}>
+                                Presentes</option>
+                            <option value="comunicacao" {{ old('categoria') == 'comunicacao' ? 'selected' : '' }}>
+                                Comunicação</option>
+                            <option value="impostos" {{ old('categoria') == 'impostos' ? 'selected' : '' }}>Impostos
+                            </option>
+                            <option value="outros" {{ old('categoria') == 'outros' ? 'selected' : '' }}>Outros
+                            </option>
                         </select>
                         @error('categoria')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
+
                     <div class="col-md-2 form-group">
                         <label for="data">Data:</label>
                         <input type="date" id="data" name="data" class="form-control border-info"
@@ -536,6 +563,7 @@
                         @enderror
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <label for="descricao">Descrição (Opcional):</label>
@@ -545,8 +573,10 @@
                         @enderror
                     </div>
                 </div>
+
                 <button type="submit" class="btn btn-primary btn-block">Cadastrar Gasto</button>
             </form>
+
         </div>
         <script>
             document.getElementById('precogastosVariados').addEventListener('input', function(e) {
@@ -637,7 +667,7 @@
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    {{-- <tbody>
                         @foreach ($servicos as $servico)
                             <tr>
                                 <td>{{ $servico->nome }}</td>
@@ -659,13 +689,13 @@
                                 </td>
                             </tr>
                         @endforeach
-                    </tbody>
+                    </tbody> --}}
                 </table>
 
                 <!-- Paginação com Bootstrap -->
-                <div class="d-flex justify-content-center">
+                {{-- <div class="d-flex justify-content-center">
                     {{ $servicos->links('pagination::bootstrap-5') }} <!-- Usando a paginação do Bootstrap 5 -->
-                </div>
+                </div> --}}
             </div>
 
         </div>
