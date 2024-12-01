@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Serviços</title>
-    <!-- Bootstrap 4 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Navbar styling */
         .navbar-mainbg {
-            background-color: #2c3e50;
+            background: linear-gradient(100deg, #001fa8, #004e58);
             padding: 0;
         }
 
@@ -25,8 +22,8 @@
         }
 
         .navbar-nav .nav-item .nav-link:hover {
-            background-color: #34495e;
-            color: #f39c12;
+            background: linear-gradient(100deg, hsl(0, 0%, 70%), #ffffff);
+            color: #000000;
             border-radius: 5px;
         }
 
@@ -42,6 +39,15 @@
         .navbar-toggler i {
             font-size: 24px;
             color: white;
+        }
+
+        h2 {
+            color: rgb(0, 59, 136);
+            background: linear-gradient(45deg, #002fff, #00b7cf);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), -2px -2px 4px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -96,7 +102,7 @@
     </nav>
     <div id="servicos" class="content-section text-center">
         <div class="container mt-5">
-            <h4 class="text-center mb-4">Cadastrar Novo Serviço</h4>
+            <h2 class="text-center mb-4">Cadastrar Novo Serviço</h2>
 
             <form method="POST" action="{{ route('servicos.store') }}">
                 @csrf
@@ -163,10 +169,8 @@
                                 <td>{{ $servico->duracao }}</td>
                                 <td>R$ {{ number_format($servico->preco, 2, ',', '.') }}</td>
                                 <td>
-                                    <!-- Botão Editar -->
                                     <a href="{{ route('servicos.edit', $servico->id) }}"
                                         class="btn btn-warning btn-sm">Editar</a>
-                                    <!-- Botão Excluir -->
                                     <form action="{{ route('servicos.destroy', $servico->id) }}" method="POST"
                                         style="display:inline;">
                                         @csrf
@@ -180,9 +184,8 @@
                     </tbody>
                 </table>
 
-                <!-- Paginação com Bootstrap -->
                 <div class="d-flex justify-content-center">
-                    {{ $servicos->links('pagination::bootstrap-5') }} <!-- Usando a paginação do Bootstrap 5 -->
+                    {{ $servicos->links('pagination::bootstrap-5') }}
                 </div>
             </div>
 

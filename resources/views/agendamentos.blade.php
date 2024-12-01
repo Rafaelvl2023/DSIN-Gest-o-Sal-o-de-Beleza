@@ -63,7 +63,6 @@
             position: relative;
         }
 
-        /* Cor vermelha para o link ativo */
         #navbarSupportedContent>ul>li.active>a {
             color: rgb(255, 217, 0);
             background-color: transparent;
@@ -141,11 +140,8 @@
 
         .pagination .page-item .page-link {
             font-size: 0.875rem;
-            /* Ajuste no tamanho da fonte */
             padding: 0.5rem 1rem;
-            /* Ajuste no padding dos botões */
             border-radius: 0.25rem;
-            /* Bordas arredondadas */
         }
 
         .pagination .page-item.active .page-link {

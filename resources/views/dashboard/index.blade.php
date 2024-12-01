@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
-    <!-- Bootstrap 4 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Navbar styling */
         .navbar-mainbg {
-            background-color: #2c3e50;
+            background: linear-gradient(100deg, #001fa8, #004e58);
             padding: 0;
         }
 
@@ -25,8 +22,8 @@
         }
 
         .navbar-nav .nav-item .nav-link:hover {
-            background-color: #34495e;
-            color: #f39c12;
+            background: linear-gradient(100deg, hsl(0, 0%, 70%), #ffffff);
+            color: #000000;
             border-radius: 5px;
         }
 
@@ -47,14 +44,12 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-mainbg">
-        <!-- Botão de alternância visível apenas em telas pequenas -->
         <button class="navbar-toggler ml-auto d-md-none" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
             <i class="fas fa-bars text-white"></i>
         </button>
 
-        <!-- Itens da Navbar -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">

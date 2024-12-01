@@ -6,14 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Agendamentos</title>
-    <!-- Bootstrap 4 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Navbar styling */
         .navbar-mainbg {
-            background-color: #2c3e50;
+            background: linear-gradient(100deg, #001fa8, #004e58);
             padding: 0;
         }
 
@@ -26,8 +23,8 @@
         }
 
         .navbar-nav .nav-item .nav-link:hover {
-            background-color: #34495e;
-            color: #f39c12;
+            background: linear-gradient(100deg, hsl(0, 0%, 70%), #ffffff);
+            color: #000000;
             border-radius: 5px;
         }
 
@@ -43,6 +40,17 @@
         .navbar-toggler i {
             font-size: 24px;
             color: white;
+        }
+
+        h2 {
+            margin-bottom: 40px;
+            padding-bottom: 10px;
+            color: rgb(0, 59, 136);
+            background: linear-gradient(45deg, #002fff, #00b7cf);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), -2px -2px 4px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -61,27 +69,32 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('agendamentos_dashboard.index') }}'">
+                    <a class="nav-link" href="javascript:void(0);"
+                        onclick="window.location.href = '{{ route('agendamentos_dashboard.index') }}'">
                         <i class="far fa-address-book"></i> Agendamentos
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('dashboard.index') }}'">
+                    <a class="nav-link" href="javascript:void(0);"
+                        onclick="window.location.href = '{{ route('dashboard.index') }}'">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('gastos_fixos.index') }}'">
+                    <a class="nav-link" href="javascript:void(0);"
+                        onclick="window.location.href = '{{ route('gastos_fixos.index') }}'">
                         <i class="far fa-clone"></i> Gastos Fixos
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('gastos_variados.index') }}'">
+                    <a class="nav-link" href="javascript:void(0);"
+                        onclick="window.location.href = '{{ route('gastos_variados.index') }}'">
                         <i class="far fa-chart-bar"></i> Gastos Variados
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('servicos.index') }}'">
+                    <a class="nav-link" href="javascript:void(0);"
+                        onclick="window.location.href = '{{ route('servicos.index') }}'">
                         <i class="far fa-chart-bar"></i> Serviços
                     </a>
                 </li>
@@ -99,7 +112,7 @@
     </nav>
     <div id="agendamentos" class="content-section text-center" style="display: block;">
         <div class="container mt-5">
-            <h1>Lista de Agendamentos</h1>
+            <h2>Lista de Agendamentos</h2>
             <table class="table table-bordered">
                 <thead>
                     <tr>

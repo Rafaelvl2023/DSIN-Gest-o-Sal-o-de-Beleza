@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <!-- Bootstrap 4 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Navbar styling */
         .navbar-mainbg {
-            background-color: #2c3e50;
+            background: linear-gradient(100deg, #001fa8, #004e58);
             padding: 0;
         }
 
@@ -25,8 +22,8 @@
         }
 
         .navbar-nav .nav-item .nav-link:hover {
-            background-color: #34495e;
-            color: #f39c12;
+            background: linear-gradient(100deg, hsl(0, 0%, 70%), #ffffff);
+            color: #000000;
             border-radius: 5px;
         }
 
@@ -42,6 +39,15 @@
         .navbar-toggler i {
             font-size: 24px;
             color: white;
+        }
+
+        h2 {
+            color: rgb(0, 59, 136);
+            background: linear-gradient(45deg, #002fff, #00b7cf);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), -2px -2px 4px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -95,15 +101,8 @@
         </div>
     </nav>
     <div id="gastosVariados" class="content-section text-center">
-        {{-- @extends('gastos_variados.index') <!-- Estende o layout base -->
-
-        @section('content')
-
-            <!-- Incluindo o conteúdo da view gastos_variados.index -->
-            @include('gastos_variados.index') <!-- Inclui o conteúdo da view de gastos variáveis -->
-        @endsection --}}
         <div class="container mt-5">
-            <h4 class="text-center mb-4">Cadastrar Novo Gasto Variado</h4>
+            <h2 class="text-center mb-4">Cadastrar Novo Gasto Variado</h2>
 
             @if (session('success'))
                 <div class="alert alert-success">
@@ -195,11 +194,49 @@
                         @enderror
                     </div>
                 </div>
-
                 <button type="submit" class="btn btn-primary btn-block">Cadastrar Gasto</button>
             </form>
-
         </div>
+        <div class="container mt-5">
+            <h2>Gastos Variados</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($gastosVariados as $dado)
+                        <tr>
+                            <td>{{ $dado->nome }}</td>
+                            <td>{{ $dado->valor }}</td>
+                            <td>{{ $dado->categoria }}</td>
+                            <td>{{ \Carbon\Carbon::parse($dado->data)->format('d/m/Y') }}</td>
+                            <td>{{ $dado->descricao }}</td>
+                            <td>
+                                <a href="{{ route('gastos_variados.edit', $dado->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                                <form action="{{ route('gastos_variados.destroy', $dado->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-center">
+                {{ $gastosVariados->links('pagination::bootstrap-4') }}
+            </div>
+        </div>
+
+
         <script>
             document.getElementById('precogastosVariados').addEventListener('input', function(e) {
                 let value = e.target.value.replace(/\D/g, '');

@@ -5,14 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Novo Gasto Fixo</title>
-    <!-- Bootstrap 4 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Navbar styling */
         .navbar-mainbg {
-            background-color: #2c3e50;
+            background: linear-gradient(100deg, #001fa8, #004e58);
             padding: 0;
         }
 
@@ -25,8 +22,8 @@
         }
 
         .navbar-nav .nav-item .nav-link:hover {
-            background-color: #34495e;
-            color: #f39c12;
+            background: linear-gradient(100deg, hsl(0, 0%, 70%), #ffffff);
+            color: #000000;
             border-radius: 5px;
         }
 
@@ -43,19 +40,26 @@
             font-size: 24px;
             color: white;
         }
+
+        h2 {
+            color: rgb(0, 59, 136);
+            background: linear-gradient(45deg, #002fff, #00b7cf);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), -2px -2px 4px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-md navbar-mainbg">
-        <!-- Botão de alternância visível apenas em telas pequenas -->
         <button class="navbar-toggler ml-auto d-md-none" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
             <i class="fas fa-bars text-white"></i>
         </button>
 
-        <!-- Itens da Navbar -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -97,7 +101,7 @@
     </nav>
     <div id="gastosFixos" class="content-section text-center">
         <div class="container mt-5">
-            <h4 class="text-center mb-4">Cadastrar Novo Gasto Fixo</h4>
+            <h2 class="text-center mb-4">Cadastrar Novo Gasto Fixo</h2>
             <form action="{{ route('gastos_fixos.store') }}" method="POST">
                 @csrf
 
@@ -164,7 +168,7 @@
             </form>
         </div>
         <div class="container mt-5">
-            <h1>Gastos Fixos</h1>
+            <h2>Gastos Fixos</h2>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -187,10 +191,8 @@
                             <td>{{ ucfirst($gasto->recorrencia) }}</td>
                             <td>{{ $gasto->descricao }}</td>
                             <td>
-                                <!-- Botão Editar -->
                                 <a href="{{ route('gastos_fixos.edit', $gasto->id) }}"
                                     class="btn btn-warning btn-sm">Editar</a>
-                                <!-- Botão Excluir -->
                                 <form action="{{ route('gastos_fixos.destroy', $gasto->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
@@ -204,15 +206,14 @@
                 </tbody>
             </table>
 
-            <!-- Paginação com Bootstrap 4 -->
             <div class="d-flex justify-content-center">
-                {{ $gastosFixos->links('pagination::bootstrap-4') }} <!-- Usando a paginação do Bootstrap 4 -->
+                {{ $gastosFixos->links('pagination::bootstrap-4') }}
             </div>
         </div>
 
         <script>
             document.getElementById('precogastosFixos').addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, ''); // remove tudo que não for número
+                let value = e.target.value.replace(/\D/g, '');
 
                 if (value) {
                     let formattedValue = value.replace(/(\d)(\d{2})$/, '$1,$2');

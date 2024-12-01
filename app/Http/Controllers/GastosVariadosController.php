@@ -9,8 +9,9 @@ class GastosVariadosController extends Controller
 {
     public function index()
     {
-        $GastosVariadoss = GastosVariados::all();
-        return view('gastos_variados.index', compact('GastosVariadoss'));
+        $gastosVariados = GastosVariados::paginate(5);
+
+        return view('gastos_variados.index', compact('gastosVariados'));
     }
 
     public function create()
@@ -39,7 +40,7 @@ class GastosVariadosController extends Controller
             'descricao' => $request->descricao,
         ]);
 
-        return redirect()->route('gastos_variados.index')->with('success', 'Gasto variado cadastrado com sucesso!');
+        return redirect()->route('gastos_variados.index');
     }
 
 

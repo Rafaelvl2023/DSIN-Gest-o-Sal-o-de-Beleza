@@ -16,16 +16,13 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Rota para agendamentos do usuário (cliente)
 Route::middleware(['auth'])->group(function () {
     Route::resource('agendamentos', AgendamentoController::class);
 });
 
-// Rota para agendamentos do administrador (dashboard)
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/agendamentos_dashboard', [AgendamentoController::class, 'dashboardIndex'])->name('agendamentos_dashboard.index');
 
-    // Resto das rotas de recursos
     Route::resource('servicos', ServicoController::class);
     Route::resource('gastos_fixos', GastosFixosController::class);
     Route::resource('gastos_variados', GastosVariadosController::class);
