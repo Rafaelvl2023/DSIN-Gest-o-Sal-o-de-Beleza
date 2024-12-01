@@ -258,13 +258,16 @@
         </div>
     </nav>
     <div class="total">
+
+
+
+
+
         <div class="form-container container col-md-6 mt-5">
             <h4 class="text-center mb-4">Agende seu serviço agora</h4>
 
             <form method="POST" action="{{ route('agendamentos.store') }}">
                 @csrf
-
-                {{-- <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}"> --}}
 
                 <input type="hidden" name="status" value="pendente">
 
@@ -295,8 +298,94 @@
                         <button type="submit" class="btn btn-primary btn-sm btn-block">Agendar</button>
                     </div>
                 </div>
+
+                <!-- Modal -->
+                <!-- Modal Bootstrap 4 -->
+                <!-- Modal Bootstrap 4 -->
+                <!-- Modal Bootstrap 4 -->
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirmação de Agendamento</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="message"></p> <!-- A mensagem vai aqui -->
+                                <p id="suggestionMessage"></p> <!-- A sugestão de data vai aqui -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" id="acceptDateButton">Aceitar a nova
+                                    data</button>
+                                <button type="button" class="btn btn-secondary" id="rejectDateButton">Não
+                                    aceita</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
             </form>
+            <!-- Script JavaScript para mostrar o Modal -->
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+            <script>
+                // Dados que você quer passar para o modal
+                var responseData = {
+                    "modal": true,
+                    "sugestao_data": "2024-11-11 21:19:00", // Exemplo de data sugerida
+                    "message": "Você tem agendamentos na mesma semana. Gostaria de agendar na mesma data do primeiro agendamento?" // Mensagem do modal
+                };
+
+                // Função que exibe o modal
+                function showModal(responseData) {
+                    if (responseData.modal) {
+                        // Preenche o conteúdo do modal
+                        document.getElementById('message').innerText = responseData.message;
+                        document.getElementById('suggestionMessage').innerText = "Sugestão de data: " + responseData.sugestao_data;
+
+                        // Exibe o modal
+                        $('#modal').modal('show');
+
+                        // Lógica para o botão "Aceitar"
+                        document.getElementById('acceptDateButton').addEventListener('click', function() {
+                            // Aqui você pode realizar ações como preencher o campo de data com a data sugerida, por exemplo:
+                            document.querySelector('input[name="data_agendamento"]').value = responseData.sugestao_data;
+
+                            // Fechar o modal
+                            $('#modal').modal('hide');
+                        });
+
+                        // Lógica para o botão "Rejeitar"
+                        document.getElementById('rejectDateButton').addEventListener('click', function() {
+                            // Fechar o modal sem fazer nada
+                            $('#modal').modal('hide');
+                        });
+                    }
+                }
+
+                // Chama a função para mostrar o modal com os dados fornecidos
+                showModal(responseData);
+            </script>
+
         </div>
+
+
+
+
+
+
+
+
+
         <div class="container" style="background-color:  rgba(255, 255, 255, 0.842);">
             <h4 class="text-center my-4">Agendamentos Cadastrados</h4>
             <!-- Exibindo a lista de agendamentos -->
@@ -316,7 +405,8 @@
                             <td class="text-center">{{ $agendamento->usuario->nome }}</td>
 
                             <!-- Exibindo a data do agendamento -->
-                            <td class="text-center">{{ \Carbon\Carbon::parse($agendamento->data_agendamento)->format('d/m/Y H:i') }}</td>
+                            <td class="text-center">
+                                {{ \Carbon\Carbon::parse($agendamento->data_agendamento)->format('d/m/Y H:i') }}</td>
 
                             <!-- Exibindo o status -->
                             <td class="text-center">{{ $agendamento->status }}</td>
@@ -334,6 +424,10 @@
             </div>
         </div>
     </div>
+    <!-- Incluindo o JavaScript do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

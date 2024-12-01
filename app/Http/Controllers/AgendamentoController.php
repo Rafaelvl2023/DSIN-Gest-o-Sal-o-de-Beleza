@@ -42,14 +42,32 @@ class AgendamentoController extends Controller
             if (Auth::check()) {
                 $usuario_id = Auth::user()->id;
             } else {
-                dd('Usuário não autenticado');
+                return response()->json(['error' => 'Usuário não autenticado'], 401);
             }
 
+            // Validação da data e serviço
             $request->validate([
                 'servico_ids' => 'required|array',
                 'data_agendamento' => 'required|date',
             ]);
 
+            // Obter todos os agendamentos do usuário na mesma semana
+            $data_agendamento = \Carbon\Carbon::parse($request->data_agendamento);
+            $inicio_semana = $data_agendamento->copy()->startOfWeek(); // Início da semana (segunda-feira)
+            $fim_semana = $data_agendamento->copy()->endOfWeek(); // Fim da semana (domingo)
+
+            $agendamentos_na_mesma_semana = Agendamento::where('usuario_id', $usuario_id)
+                ->whereBetween('data_agendamento', [$inicio_semana, $fim_semana])
+                ->get();
+
+            // Se o usuário já tem mais de 1 agendamento na mesma semana
+            if ($agendamentos_na_mesma_semana->count() >= 1) {
+                // Pega a data do primeiro agendamento na semana
+                $primeiro_agendamento = $agendamentos_na_mesma_semana->first()->data_agendamento;
+
+            }
+
+            // Caso não tenha, crie o agendamento normalmente
             Agendamento::create([
                 'usuario_id' => $usuario_id,
                 'servico_ids' => json_encode($request->servico_ids),
