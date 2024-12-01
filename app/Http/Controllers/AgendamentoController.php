@@ -7,6 +7,7 @@ use App\Models\Servico;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AgendamentoController extends Controller
 {
@@ -52,7 +53,7 @@ class AgendamentoController extends Controller
             ]);
 
             // Obter todos os agendamentos do usuário na mesma semana
-            $data_agendamento = \Carbon\Carbon::parse($request->data_agendamento);
+            $data_agendamento = Carbon::parse($request->data_agendamento);
             $inicio_semana = $data_agendamento->copy()->startOfWeek(); // Início da semana (segunda-feira)
             $fim_semana = $data_agendamento->copy()->endOfWeek(); // Fim da semana (domingo)
 
@@ -62,9 +63,18 @@ class AgendamentoController extends Controller
 
             // Se o usuário já tem mais de 1 agendamento na mesma semana
             if ($agendamentos_na_mesma_semana->count() >= 1) {
-                // Pega a data do primeiro agendamento na semana
-                $primeiro_agendamento = $agendamentos_na_mesma_semana->first()->data_agendamento;
+                // Pega a data do primeiro agendamento na semana e garante que seja um objeto Carbon
+                $primeiro_agendamento = Carbon::parse($agendamentos_na_mesma_semana->first()->data_agendamento);
 
+                // Preparando os dados para a resposta do modal
+                $responseData = [
+                    "modal" => true,
+                    "sugestao_data" => $primeiro_agendamento->addDay()->toDateTimeString(), // Sugestão de nova data
+                    "message" => "Você tem agendamentos na mesma semana. Gostaria de agendar na mesma data do primeiro agendamento?"
+                ];
+
+                // Retorna os dados para a view
+                return view('agendamentos.index', compact('responseData'));
             }
 
             // Caso não tenha, crie o agendamento normalmente
