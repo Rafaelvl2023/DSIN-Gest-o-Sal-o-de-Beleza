@@ -150,7 +150,7 @@
                 <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
             </form>
             <div class="container mt-5">
-                <h1>Lista de Serviços</h1>
+                <h2>Lista de Serviços</h2>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
