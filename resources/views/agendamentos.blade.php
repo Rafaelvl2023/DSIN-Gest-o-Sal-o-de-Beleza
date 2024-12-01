@@ -265,7 +265,7 @@
 
         <div class="form-container container col-md-6 mt-5">
             <h4 class="text-center mb-4">Agende seu serviço agora</h4>
-        
+
             <form method="POST" action="{{ route('agendamentos.store') }}">
                 @csrf
                 <input type="hidden" name="status" value="pendente">
@@ -297,7 +297,7 @@
                     </div>
                 </div>
             </form>
-        
+
             <!-- Modal -->
             <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -320,52 +320,55 @@
                     </div>
                 </div>
             </div>
-        
+
             <!-- Script JavaScript para mostrar o Modal -->
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        
+
             <script>
-                // Verifica se há dados para mostrar o modal
-                var responseData = @json(session('responseData') ?? null);
-        
-                if (responseData && responseData.modal) {
-                    // Função que exibe o modal
-                    function showModal(responseData) {
-                        if (responseData.modal) {
-                            // Preenche o conteúdo do modal
-                            document.getElementById('message').innerText = responseData.message;
-                            document.getElementById('suggestionMessage').innerText = "Sugestão de data: " + responseData.sugestao_data;
-        
-                            // Exibe o modal
-                            $('#modal').modal('show');
-        
-                            // Lógica para o botão "Aceitar"
-                            document.getElementById('acceptDateButton').addEventListener('click', function() {
-                                // Preenche o campo de data com a data sugerida
-                                document.querySelector('input[name="data_agendamento"]').value = responseData.sugestao_data;
-        
-                                // Fechar o modal
-                                $('#modal').modal('hide');
-                            });
-        
-                            // Lógica para o botão "Rejeitar"
-                            document.getElementById('rejectDateButton').addEventListener('click', function() {
-                                // Fechar o modal sem fazer nada
-                                $('#modal').modal('hide');
-                            });
+                // Aguarda o carregamento completo da página antes de executar o código
+                $(document).ready(function() {
+                    // Verifica se há dados para mostrar o modal
+                    var responseData = @json(session('responseData') ?? null);
+
+                    if (responseData && responseData.modal) {
+                        // Função que exibe o modal
+                        function showModal(responseData) {
+                            if (responseData.modal) {
+                                // Preenche o conteúdo do modal
+                                $('#message').text(responseData.message);
+                                $('#suggestionMessage').text("Sugestão de data: " + responseData.sugestao_data);
+
+                                // Exibe o modal
+                                $('#modal').modal('show');
+
+                                // Lógica para o botão "Aceitar"
+                                $('#acceptDateButton').off('click').on('click', function() {
+                                    // Preenche o campo de data com a data sugerida
+                                    $('input[name="data_agendamento"]').val(responseData.sugestao_data);
+
+                                    // Fecha o modal
+                                    $('#modal').modal('hide');
+                                });
+
+                                // Lógica para o botão "Rejeitar"
+                                $('#rejectDateButton').off('click').on('click', function() {
+                                    // Fecha o modal sem fazer nada
+                                    $('#modal').modal('hide');
+                                });
+                            }
                         }
+
+                        // Chama a função para mostrar o modal com os dados fornecidos
+                        showModal(responseData);
                     }
-        
-                    // Chama a função para mostrar o modal com os dados fornecidos
-                    showModal(responseData);
-                }
+                });
             </script>
-        
         </div>
-        
-        
-        
+
+
+
+
 
 
 
