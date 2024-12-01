@@ -314,10 +314,8 @@
                             <p id="suggestionMessage"></p> <!-- A sugestão de data vai aqui -->
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-success" id="acceptDateButton">Aceitar a nova
-                                data</button>
-                            <button type="button" class="btn btn-secondary" id="rejectDateButton">Não
-                                aceita</button>
+                            <button type="button" class="btn btn-success" id="acceptDateButton">Aceitar a nova data</button>
+                            <button type="button" class="btn btn-secondary" id="rejectDateButton">Não aceita</button>
                         </div>
                     </div>
                 </div>
@@ -329,7 +327,7 @@
         
             <script>
                 // Verifica se há dados para mostrar o modal
-                var responseData = @json($responseData ?? null); // Usando a variável do controlador
+                var responseData = @json(session('responseData') ?? null);
         
                 if (responseData && responseData.modal) {
                     // Função que exibe o modal
@@ -344,7 +342,7 @@
         
                             // Lógica para o botão "Aceitar"
                             document.getElementById('acceptDateButton').addEventListener('click', function() {
-                                // Aqui você pode realizar ações como preencher o campo de data com a data sugerida, por exemplo:
+                                // Preenche o campo de data com a data sugerida
                                 document.querySelector('input[name="data_agendamento"]').value = responseData.sugestao_data;
         
                                 // Fechar o modal
@@ -365,6 +363,7 @@
             </script>
         
         </div>
+        
         
         
 
