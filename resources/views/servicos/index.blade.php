@@ -56,7 +56,6 @@
             color: #343a40;
         }
 
-        /* Estilo para a formatação do valor monetário */
         input[type="text"] {
             text-align: right;
         }

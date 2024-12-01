@@ -87,7 +87,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('gastos_variaveis.index') }}'">
+                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('gastos_variados.index') }}'">
                         <i class="far fa-gastosVariados-alt"></i>Gastos Variados
                     </a>
                 </li>

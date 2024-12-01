@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Agendamento;
 use App\Models\Servico;
-use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -20,6 +19,13 @@ class AgendamentoController extends Controller
         $servicos = Servico::paginate(10);
 
         return view('agendamentos.index', compact('agendamentos', 'servicos'));
+    }
+
+    public function dashboardIndex()
+    {
+        $agendamentos = Agendamento::paginate(5);
+
+        return view('agendamentos_dashboard.index', compact('agendamentos'));
     }
 
     public function create()

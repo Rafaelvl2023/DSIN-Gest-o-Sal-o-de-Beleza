@@ -10,6 +10,6 @@ class DashboardController extends Controller
     {
         $agendamentos = Agendamento::all();
 
-        return view('dashboard', compact('agendamentos'));
+        return view('dashboard.index', compact('agendamentos'));
     }
 }
