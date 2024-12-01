@@ -406,7 +406,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($gastosFixos as $gasto)
+                    {{-- @foreach ($gastosFixos as $gasto)
                         <tr>
                             <td>{{ $gasto->nome }}</td>
                             <td>{{ $gasto->valor }}</td>
@@ -428,13 +428,13 @@
                                 </form>
                             </td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
 
             <!-- Paginação com Bootstrap 4 -->
             <div class="d-flex justify-content-center">
-                {{ $gastosFixos->links('pagination::bootstrap-4') }} <!-- Usando a paginação do Bootstrap 4 -->
+                {{-- {{ $gastosFixos->links('pagination::bootstrap-4') }} <!-- Usando a paginação do Bootstrap 4 --> --}}
             </div>
         </div>
 

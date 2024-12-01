@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\GastosVariados; 
 
-class GastosVariadosController extends Controller
+class GastosVariadossController extends Controller
 {
     public function index()
     {
-        $gastosVariados = GastosVariado::all(); 
-        return view('gastos_variados.index', compact('gastosVariados')); 
+        $GastosVariadoss = GastosVariados::all(); 
+        return view('gastos_variados.index', compact('GastosVariadoss')); 
     }
 
     public function create()
@@ -28,22 +28,22 @@ class GastosVariadosController extends Controller
             'descricao' => 'nullable|string',
         ]);
 
-        GastosVariado::create($validated);
+        GastosVariados::create($validated);
 
         return redirect()->route('gastos_variados.index')->with('success', 'Gasto variado cadastrado com sucesso!');
     }
 
-    public function show(GastosVariado $gastoVariado)
+    public function show(GastosVariados $gastoVariado)
     {
         return view('gastos_variados.show', compact('gastoVariado')); 
     }
 
-    public function edit(GastosVariado $gastoVariado)
+    public function edit(GastosVariados $gastoVariado)
     {
         return view('gastos_variados.edit', compact('gastoVariado')); 
     }
 
-    public function update(Request $request, GastosVariado $gastoVariado)
+    public function update(Request $request, GastosVariados $gastoVariado)
     {
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
@@ -58,7 +58,7 @@ class GastosVariadosController extends Controller
         return redirect()->route('gastos_variados.index')->with('success', 'Gasto variado atualizado com sucesso!');
     }
 
-    public function destroy(GastosVariado $gastoVariado)
+    public function destroy(GastosVariados $gastoVariado)
     {
         $gastoVariado->delete();
 
