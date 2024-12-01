@@ -103,23 +103,19 @@ class AgendamentoController extends Controller
     public function update(Request $request, Agendamento $agendamento)
     {
         $request->validate([
-            'usuario_id' => 'required|exists:usuarios,id',
-            'servico_ids' => 'required|array',
             'data_agendamento' => 'required|date',
-            'status' => 'required|in:pendente,confirmado,cancelado',
-            'observacoes' => 'nullable|string',
         ]);
+
+        $data_agendamento = Carbon::parse($request->data_agendamento)->format('Y-m-d H:i:s');
 
         $agendamento->update([
-            'usuario_id' => $request->usuario_id,
-            'servico_ids' => json_encode($request->servico_ids),
-            'data_agendamento' => $request->data_agendamento,
-            'status' => $request->status,
-            'observacoes' => $request->observacoes,
+            'data_agendamento' => $data_agendamento,
         ]);
 
-        return redirect()->route('agendamentos.index')->with('success', 'Agendamento atualizado com sucesso!');
+        return redirect()->route('agendamentos.index')->with('success', 'Data do agendamento atualizada com sucesso!');
     }
+
+
 
     public function destroy(Agendamento $agendamento)
     {
