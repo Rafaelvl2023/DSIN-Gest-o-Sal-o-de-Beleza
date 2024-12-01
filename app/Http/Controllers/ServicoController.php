@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Servico;
 use Illuminate\Http\Request;
+use App\Models\Agendamento;
 
 class ServicoController extends Controller
 {
     public function index()
     {
+        $agendamentos = Agendamento::paginate(5);
         // Pega todos os serviços cadastrados
         $servicos = Servico::paginate(5); // 10 itens por página
 
         // Retorna a view do dashboard com os dados dos serviços
-        return view('dashboard', compact('servicos'));  // compact('servicos') deve passar a variável corretamente
+        return view('dashboard', compact('servicos','agendamentos'));  // compact('servicos') deve passar a variável corretamente
     }
 
     public function create()

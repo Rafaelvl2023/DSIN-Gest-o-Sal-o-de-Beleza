@@ -218,31 +218,6 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                {{-- <div class="hori-selector">
-                    <div class="left"></div>
-                    <div class="right"></div>
-                </div>
-                <li class="nav-item">
-                    <a class="nav-link" href="#agendamentos" onclick="showSection('agendamentos')"><i
-                            class="far fa-address-book"></i>Agendamentos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#dashboard" onclick="showSection('dashboard')"><i
-                            class="fas fa-tachometer-alt"></i>Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#gastosFixos" onclick="showSection('gastosFixos')"><i
-                            class="far fa-clone"></i>Gastos Fixos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#gastosVariados" onclick="showSection('gastosVariados')"><i
-                            class="far fa-gastosVariados-alt"></i>Gastos Variados</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#servicos" onclick="showSection('servicos')">
-                        <i class="far fa-chart-bar"></i>Serviços
-                    </a>
-                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" onclick="showSection('agendamentos')">
                         <i class="far fa-address-book"></i>Agendamentos
@@ -285,8 +260,59 @@
     </nav>
 
     <div id="agendamentos" class="content-section text-center" style="display: block;">
-        <h1>Agendamento</h1>
-        <p>Agendamento.</p>
+        <div class="container mt-5">
+            <h1>Lista de Agendamentos</h1>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Serviços</th>
+                        <th scope="col">Data do Agendamento</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Observações</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($agendamentos as $agendamento)
+                        <tr>
+                            <!-- Exibir os serviços associados ao agendamento -->
+                            <td>
+                                @foreach (json_decode($agendamento->servico_ids) as $servicoId)
+                                    @php
+                                        $servico = \App\Models\Servico::find($servicoId);
+                                    @endphp
+                                    <div>{{ $servico ? $servico->nome : 'Serviço não encontrado' }}</div>
+                                @endforeach
+                            </td>
+                            <td>{{ \Carbon\Carbon::parse($agendamento->data_agendamento)->format('d/m/Y H:i') }}</td>
+                            <td>{{ ucfirst($agendamento->status) }}</td>
+                            <td>{{ $agendamento->observacoes }}</td>
+                            <td>
+                                <!-- Botão Editar -->
+                                <a href="{{ route('agendamentos.edit', $agendamento->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                                <!-- Botão Excluir -->
+                                <form action="{{ route('agendamentos.destroy', $agendamento->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <!-- Paginação com Bootstrap 4 -->
+            <div class="d-flex justify-content-center">
+                {{ $agendamentos->links('pagination::bootstrap-4') }} <!-- Usando a paginação do Bootstrap 4 -->
+            </div>
+        </div>
+
+        <!-- Incluir o Bootstrap 4 JS (e jQuery se necessário) -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
     </div>
 
     <div id="dashboard" class="content-section text-center">
@@ -654,6 +680,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
     </script>
+    <!-- Incluir o Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <script>
         // function showSection(sectionId) {
         //     // Hide all sections

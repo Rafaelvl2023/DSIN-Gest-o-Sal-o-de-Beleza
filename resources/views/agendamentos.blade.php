@@ -139,6 +139,79 @@
             left: -25px;
         }
 
+        .pagination .page-item .page-link {
+            font-size: 0.875rem;
+            /* Ajuste no tamanho da fonte */
+            padding: 0.5rem 1rem;
+            /* Ajuste no padding dos botões */
+            border-radius: 0.25rem;
+            /* Bordas arredondadas */
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .pagination .page-item .page-link:hover {
+            background-color: #f1f1f1;
+            border-color: #007bff;
+        }
+
+        .pagination .page-link {
+            color: #007bff;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #6c757d;
+            background-color: #e9ecef;
+            border-color: #ddd;
+        }
+
+        .whatsapp-icon img {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            z-index: 1000;
+            animation: blink 1.3s infinite;
+        }
+
+        .textWhats {
+            text-align: center;
+            font-size: 25px;
+            color: #28a745;
+            font-weight: bold;
+            padding-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+                -1px -1px 2px rgba(0, 0, 0, 0.1);
+            transform: perspective(300px) rotateX(10deg);
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+                filter: brightness(1.5);
+            }
+
+            100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+        }
+
+
+
         @media (min-width: 992px) {
             .navbar-expand-custom {
                 -ms-flex-flow: row nowrap;
@@ -239,9 +312,14 @@
 </head>
 
 <body>
+    <div class="whatsapp-icon">
+        <img src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png"
+            alt="WhatsApp Icon">
+    </div>
     <nav class="navbar navbar-expand-custom navbar-mainbg">
-        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
             <i class="fas fa-bars text-white"></i>
         </button>
 
@@ -356,6 +434,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th class="text-center">Usuário</th>
+                        <th scope="col">Serviços</th>
                         <th class="text-center">Data do Agendamento</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Observações</th>
@@ -366,13 +445,20 @@
                     @foreach ($agendamentos as $agendamento)
                         <tr>
                             <td class="text-center">{{ $agendamento->usuario->nome }}</td>
+                            <td>
+                                @foreach (json_decode($agendamento->servico_ids) as $servicoId)
+                                    @php
+                                        $servico = \App\Models\Servico::find($servicoId);
+                                    @endphp
+                                    <div>{{ $servico ? $servico->nome : 'Serviço não encontrado' }}</div>
+                                @endforeach
+                            </td>
                             <td class="text-center">
                                 {{ \Carbon\Carbon::parse($agendamento->data_agendamento)->format('d/m/Y H:i') }}
                             </td>
                             <td class="text-center">{{ $agendamento->status }}</td>
                             <td class="text-center">{{ $agendamento->observacoes }}</td>
                             <td class="text-center">
-                                <!-- Botão Editar -->
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#editModal" data-agendamento-id="{{ $agendamento->id }}"
                                     data-data-agendamento="{{ $agendamento->data_agendamento }}"
@@ -380,7 +466,6 @@
                                     data-observacoes-agendamento="{{ $agendamento->observacoes }}">
                                     Editar
                                 </button>
-
                             </td>
                         </tr>
                     @endforeach
@@ -389,16 +474,16 @@
                             {{ session('error') }}
                         </div>
                     @endif
-
-
                 </tbody>
             </table>
+
             <div class="d-flex justify-content-center">
-                {{ $agendamentos->links() }}
+                {{ $agendamentos->links('pagination::bootstrap-4') }}
             </div>
+
+            <h5 class="textWhats">Qualquer dúvida, entre em contato comigo pelo WhatsApp!!!</h5>
         </div>
 
-        <!-- Modal para editar o agendamento -->
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -420,21 +505,6 @@
                                 <input type="datetime-local" class="form-control" id="modalDataAgendamento"
                                     name="data_agendamento">
                             </div>
-
-                            <div class="form-group">
-                                <label for="modalStatus">Status do Agendamento</label>
-                                <select class="form-control" id="modalStatus" name="status">
-                                    <option value="pendente">Pendente</option>
-                                    <option value="confirmado">Confirmado</option>
-                                    <option value="cancelado">Cancelado</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="modalObservacoes">Observações</label>
-                                <textarea class="form-control" id="modalObservacoes" name="observacoes"></textarea>
-                            </div>
-
                             <button type="submit" class="btn btn-primary">Salvar Alterações</button>
                         </form>
                     </div>
@@ -455,15 +525,12 @@
                 var statusAgendamento = button.data('status-agendamento');
                 var observacoesAgendamento = button.data('observacoes-agendamento');
 
-                // Atualiza o atributo 'action' do formulário
                 var formAction = '{{ route('agendamentos.update', ':id') }}'.replace(':id', agendamentoId);
                 $('#editForm').attr('action', formAction);
 
-                // Formatação da data para o campo datetime-local
                 var formattedDate = moment(dataAgendamento).format('YYYY-MM-DDTHH:mm');
                 $('#modalDataAgendamento').val(formattedDate);
 
-                // Preenchendo os outros campos do modal
                 $('#modalStatus').val(statusAgendamento);
                 $('#modalObservacoes').val(observacoesAgendamento);
             });

@@ -6,6 +6,7 @@ use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\GastosFixosController;
 use App\Http\Controllers\GastosVariadosController;
 use App\Http\Controllers\AgendamentoController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', [AuthController::class, 'index'])->name('login.form');
 Route::post('/', [AuthController::class, 'login'])->name('login');
@@ -21,9 +22,9 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'admin'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
 
     Route::get('/dashboard', [ServicoController::class, 'index'])->name('dashboard');
 

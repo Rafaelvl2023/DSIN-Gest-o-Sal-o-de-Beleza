@@ -15,7 +15,7 @@ class AgendamentoController extends Controller
     {
         $userId = Auth::user()->id;
 
-        $agendamentos = Agendamento::where('usuario_id', $userId)->paginate(10);
+        $agendamentos = Agendamento::where('usuario_id', $userId)->paginate(5);
 
         $servicos = Servico::paginate(10);
 
