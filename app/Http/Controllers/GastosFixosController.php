@@ -4,13 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\GastosFixos;
 use Illuminate\Http\Request;
+use App\Models\Agendamento;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Servico;
 
 class GastosFixosController extends Controller
 {
     public function index()
     {
-        $gastosFixos = GastosFixos::all();
-        return view('gastos_fixos.index', compact('gastosFixos'));
+        $gastosFixos = GastosFixos::paginate(5); 
+        $userId = Auth::user()->id;
+
+        $servicos = Servico::paginate(5);
+
+        $agendamentos = Agendamento::where('usuario_id', $userId)->paginate(5);
+
+        return view('dashboard', compact('gastosFixos', 'agendamentos', 'servicos'));
     }
 
     public function create()
@@ -22,19 +31,31 @@ class GastosFixosController extends Controller
     {
         $request->validate([
             'nome' => 'required|string|max:255',
-            'valor' => 'required|numeric',
+            'valor' => 'required|string',
             'categoria' => 'required|in:aluguel,salarios,energia,agua,internet,telefone,manutencao,seguros,publicidade',
             'data_vencimento' => 'required|date',
             'recorrencia' => 'required|in:mensal,anual,semanal,diaria',
+            'descricao' => 'string',
         ]);
 
-        GastosFixos::create($request->all()); 
+        $valor = str_replace(['R$', ' '], '', $request->valor); 
+        $valor = str_replace(',', '.', $valor); 
+        GastosFixos::create([
+            'nome' => $request->nome,
+            'valor' => $valor,
+            'categoria' => $request->categoria,
+            'data_vencimento' => $request->data_vencimento,
+            'recorrencia' => $request->recorrencia,
+            'descricao' => $request->descricao,
+        ]);
+
         return redirect()->route('gastos_fixos.index')->with('success', 'Gasto fixo cadastrado com sucesso!');
     }
 
+
     public function edit($id)
     {
-        $gastoFixo = GastosFixos::findOrFail($id); 
+        $gastoFixo = GastosFixos::findOrFail($id);
         return view('gastos_fixos.edit', compact('gastoFixo'));
     }
 
@@ -48,15 +69,15 @@ class GastosFixosController extends Controller
             'recorrencia' => 'required|in:mensal,anual,semanal,diaria',
         ]);
 
-        $gastoFixo = GastosFixos::findOrFail($id); 
-        $gastoFixo->update($request->all()); 
+        $gastoFixo = GastosFixos::findOrFail($id);
+        $gastoFixo->update($request->all());
         return redirect()->route('gastos_fixos.index')->with('success', 'Gasto fixo atualizado com sucesso!');
     }
 
     public function destroy($id)
     {
         $gastoFixo = GastosFixos::findOrFail($id);
-        $gastoFixo->delete(); 
+        $gastoFixo->delete();
         return redirect()->route('gastos_fixos.index')->with('success', 'Gasto fixo excluído com sucesso!');
     }
 }

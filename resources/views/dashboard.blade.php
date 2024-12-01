@@ -289,12 +289,15 @@
                             <td>{{ $agendamento->observacoes }}</td>
                             <td>
                                 <!-- Botão Editar -->
-                                <a href="{{ route('agendamentos.edit', $agendamento->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                                <a href="{{ route('agendamentos.edit', $agendamento->id) }}"
+                                    class="btn btn-warning btn-sm">Editar</a>
                                 <!-- Botão Excluir -->
-                                <form action="{{ route('agendamentos.destroy', $agendamento->id) }}" method="POST" style="display:inline;">
+                                <form action="{{ route('agendamentos.destroy', $agendamento->id) }}" method="POST"
+                                    style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
                                 </form>
                             </td>
                         </tr>
@@ -331,20 +334,20 @@
                         <label for="nome">Nome:</label>
                         <input type="text" name="nome" id="nome" class="form-control border-info" required>
                     </div>
-
                     <div class="col-md-2 form-group">
-                        <label for="preco">Valor:</label>
+                        <label for="valor">Valor:</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">R$</span>
                             </div>
-                            <input type="text" class="form-control border-info" id="precogastosFixos" name="preco"
+                            <input type="text" class="form-control border-info" id="precogastosFixos" name="valor"
                                 required>
                         </div>
-                        @error('precogastosFixos')
+                        @error('valor')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
+
                     <div class="col-md-2 form-group">
                         <label for="categoria">Categoria:</label>
                         <select name="categoria" id="categoria" class="form-control border-info" required>
@@ -388,6 +391,55 @@
                 <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
             </form>
         </div>
+        <div class="container mt-5">
+            <h1>Gastos Fixos</h1>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Data de Vencimento</th>
+                        <th scope="col">Recorrência</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($gastosFixos as $gasto)
+                        <tr>
+                            <td>{{ $gasto->nome }}</td>
+                            <td>{{ $gasto->valor }}</td>
+                            <td>{{ $gasto->categoria }}</td>
+                            <td>{{ \Carbon\Carbon::parse($gasto->data_vencimento)->format('d/m/Y') }}</td>
+                            <td>{{ ucfirst($gasto->recorrencia) }}</td>
+                            <td>{{ $gasto->descricao }}</td>
+                            <td>
+                                <!-- Botão Editar -->
+                                <a href="{{ route('gastos_fixos.edit', $gasto->id) }}"
+                                    class="btn btn-warning btn-sm">Editar</a>
+                                <!-- Botão Excluir -->
+                                <form action="{{ route('gastos_fixos.destroy', $gasto->id) }}" method="POST"
+                                    style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <!-- Paginação com Bootstrap 4 -->
+            <div class="d-flex justify-content-center">
+                {{ $gastosFixos->links('pagination::bootstrap-4') }} <!-- Usando a paginação do Bootstrap 4 -->
+            </div>
+        </div>
+
+
+
         <script>
             document.getElementById('precogastosFixos').addEventListener('input', function(e) {
                 let value = e.target.value.replace(/\D/g, ''); // remove tudo que não for número
