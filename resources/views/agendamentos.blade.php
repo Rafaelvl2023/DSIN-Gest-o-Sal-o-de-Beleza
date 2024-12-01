@@ -206,13 +206,6 @@
             display: none;
         }
 
-        .total {
-            /* display: flex;
-            justify-content: center;
-            align-items: center; */
-            /* text-align: center; */
-        }
-
         .form-container {
             background-color: rgba(255, 255, 255, 0.842);
             padding: 30px;
@@ -232,6 +225,15 @@
 
         .checkbox-container.open {
             max-height: 200px;
+        }
+
+        #flash-message {
+            transition: opacity 1s ease-out;
+            opacity: 1;
+        }
+
+        #flash-message.fade-out {
+            opacity: 0;
         }
     </style>
 </head>
@@ -258,11 +260,6 @@
         </div>
     </nav>
     <div class="total">
-
-
-
-
-
         <div class="form-container container col-md-6 mt-5">
             <h4 class="text-center mb-4">Agende seu serviço agora</h4>
 
@@ -298,7 +295,6 @@
                 </div>
             </form>
 
-            <!-- Modal -->
             <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -310,8 +306,8 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p id="message"></p> <!-- A mensagem vai aqui -->
-                            <p id="suggestionMessage"></p> <!-- A sugestão de data vai aqui -->
+                            <p id="message"></p>
+                            <p id="suggestionMessage"></p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-success" id="acceptDateButton">Aceitar a nova
@@ -322,66 +318,40 @@
                 </div>
             </div>
 
-            <!-- Script JavaScript para mostrar o Modal -->
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
             <script>
-                // Aguarda o carregamento completo da página antes de executar o código
                 $(document).ready(function() {
-                    // Verifica se há dados para mostrar o modal
                     var responseData = @json(session('responseData') ?? null);
 
                     if (responseData && responseData.modal) {
-                        // Função que exibe o modal
                         function showModal(responseData) {
                             if (responseData.modal) {
-                                // Preenche o conteúdo do modal
                                 $('#message').text(responseData.message);
                                 $('#suggestionMessage').text("Sugestão de data: " + responseData.sugestao_data);
 
-                                // Exibe o modal
                                 $('#modal').modal('show');
 
-                                // Lógica para o botão "Aceitar"
                                 $('#acceptDateButton').off('click').on('click', function() {
-                                    // Preenche o campo de data com a data sugerida
                                     $('input[name="data_agendamento"]').val(responseData.sugestao_data);
 
-                                    // Fecha o modal
                                     $('#modal').modal('hide');
                                 });
 
-                                // Lógica para o botão "Rejeitar"
                                 $('#rejectDateButton').off('click').on('click', function() {
-                                    // Fecha o modal sem fazer nada
                                     $('#modal').modal('hide');
                                 });
                             }
                         }
 
-                        // Chama a função para mostrar o modal com os dados fornecidos
                         showModal(responseData);
                     }
                 });
             </script>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
         <div class="container" style="background-color: rgba(255, 255, 255, 0.842);">
             <h4 class="text-center my-4">Agendamentos Cadastrados</h4>
-            <!-- Exibindo a lista de agendamentos -->
             <table class="table table-striped table-bordered table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -403,33 +373,32 @@
                             <td class="text-center">{{ $agendamento->observacoes }}</td>
                             <td class="text-center">
                                 <!-- Botão Editar -->
-                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal"
-                                    data-agendamento-id="{{ $agendamento->id }}"
-                                    data-usuario-nome="{{ $agendamento->usuario->nome }}"
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#editModal" data-agendamento-id="{{ $agendamento->id }}"
                                     data-data-agendamento="{{ $agendamento->data_agendamento }}"
-                                    data-status="{{ $agendamento->status }}"
-                                    data-observacoes="{{ $agendamento->observacoes }}">
+                                    data-status-agendamento="{{ $agendamento->status }}"
+                                    data-observacoes-agendamento="{{ $agendamento->observacoes }}">
                                     Editar
                                 </button>
+
                             </td>
                         </tr>
                     @endforeach
                     @if (session('error'))
-                        <div class="alert alert-danger">
+                        <div id="flash-message" class="alert alert-danger" role="alert">
                             {{ session('error') }}
                         </div>
                     @endif
 
+
                 </tbody>
             </table>
-
-            <!-- Exibindo a paginação -->
             <div class="d-flex justify-content-center">
                 {{ $agendamentos->links() }}
             </div>
         </div>
 
-        <!-- Modal de Edição -->
+        <!-- Modal para editar o agendamento -->
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -473,7 +442,7 @@
             </div>
         </div>
 
-        <!-- Scripts necessários para o Bootstrap 4 -->
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -483,31 +452,41 @@
                 var button = $(event.relatedTarget);
                 var agendamentoId = button.data('agendamento-id');
                 var dataAgendamento = button.data('data-agendamento');
+                var statusAgendamento = button.data('status-agendamento');
+                var observacoesAgendamento = button.data('observacoes-agendamento');
 
+                // Atualiza o atributo 'action' do formulário
                 var formAction = '{{ route('agendamentos.update', ':id') }}'.replace(':id', agendamentoId);
                 $('#editForm').attr('action', formAction);
 
-                // Formatar a data corretamente para o campo datetime-local
+                // Formatação da data para o campo datetime-local
                 var formattedDate = moment(dataAgendamento).format('YYYY-MM-DDTHH:mm');
+                $('#modalDataAgendamento').val(formattedDate);
 
-                $('#modalDataAgendamento').val(formattedDate); // Passando apenas a data
+                // Preenchendo os outros campos do modal
+                $('#modalStatus').val(statusAgendamento);
+                $('#modalObservacoes').val(observacoesAgendamento);
             });
         </script>
+        <script>
+            if (document.getElementById('flash-message')) {
+                setTimeout(function() {
+                    document.getElementById('flash-message').classList.add('fade-out');
 
-
+                    setTimeout(function() {
+                        document.getElementById('flash-message').style.display = 'none';
+                    }, 1000);
+                }, 3000);
+            }
+        </script>
     </div>
-    <!-- Incluindo o JavaScript do Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-
-
     <script>
         $('#editarModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
@@ -536,7 +515,6 @@
             checkboxList.classList.toggle('open');
         });
 
-        // Fechar a lista ao clicar fora
         document.addEventListener('click', function(event) {
             const dropdownButton = document.getElementById('dropdownButton');
             const checkboxList = document.getElementById('checkboxList');
@@ -545,7 +523,6 @@
             }
         });
     </script>
-
 </body>
 
 </html>
