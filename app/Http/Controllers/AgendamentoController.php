@@ -18,12 +18,12 @@ class AgendamentoController extends Controller
 
         $servicos = Servico::paginate(10);
 
-        return view('agendamentos.index', compact('agendamentos', 'servicos'));
+        return view('agendamentos', compact('agendamentos', 'servicos'));
     }
 
     public function dashboardIndex()
     {
-        $agendamentos = Agendamento::paginate(5);
+        $agendamentos = Agendamento::paginate(8);
 
         return view('agendamentos_dashboard.index', compact('agendamentos'));
     }

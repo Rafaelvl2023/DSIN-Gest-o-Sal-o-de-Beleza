@@ -5,102 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
+    <!-- Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        .content-section {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
+        /* Navbar styling */
+        .navbar-mainbg {
+            background-color: #2c3e50;
+            padding: 0;
         }
 
-        .form-control.border-info {
-            border: 1px solid #17a2b8;
+        .navbar-nav .nav-item .nav-link {
+            color: white;
+            font-size: 16px;
+            padding: 15px 20px;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            background-color: #34495e;
+            color: #f39c12;
+            border-radius: 5px;
+        }
+
+        .navbar-toggler {
+            border: none;
+            outline: none;
+        }
+
+        .navbar-toggler:focus {
             box-shadow: none;
         }
 
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-
-        .btn-warning {
-            background-color: #ffc107;
-            border: none;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            border: none;
-        }
-
-        .table th, .table td {
-            text-align: center;
-        }
-
-        .input-group-text {
-            background-color: #17a2b8;
+        .navbar-toggler i {
+            font-size: 24px;
             color: white;
-        }
-
-        .container {
-            margin-top: 20px;
-        }
-
-        h4.text-center {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #343a40;
-        }
-
-        input[type="text"] {
-            text-align: right;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-custom navbar-mainbg">
-        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+    <nav class="navbar navbar-expand-md navbar-mainbg">
+        <!-- Botão de alternância visível apenas em telas pequenas -->
+        <button class="navbar-toggler ml-auto d-md-none" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
             <i class="fas fa-bars text-white"></i>
         </button>
 
+        <!-- Itens da Navbar -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('agendamentosDashboard.index') }}'">
-                        <i class="far fa-address-book"></i>Agendamentos
+                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('agendamentos_dashboard.index') }}'">
+                        <i class="far fa-address-book"></i> Agendamentos
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('dashboard.index') }}'">
-                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('gastos_fixos.index') }}'">
-                        <i class="far fa-clone"></i>Gastos Fixos
+                        <i class="far fa-clone"></i> Gastos Fixos
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('gastos_variados.index') }}'">
-                        <i class="far fa-gastosVariados-alt"></i>Gastos Variados
+                        <i class="far fa-chart-bar"></i> Gastos Variados
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('servicos.index') }}'">
-                        <i class="far fa-chart-bar"></i>Serviços
+                        <i class="far fa-chart-bar"></i> Serviços
                     </a>
                 </li>
                 <li class="nav-item ml-auto">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="nav-link"
-                            style="background: none; border: none; color: white; padding: 20px 20px; cursor: pointer;">
+                            style="background: none; border: none; color: white; padding: 15px 20px; cursor: pointer;">
                             <i class="fas fa-times"></i> Sair
                         </button>
                     </form>

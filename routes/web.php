@@ -23,7 +23,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Rota para agendamentos do administrador (dashboard)
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/agendamentos_dashboard', [AgendamentoController::class, 'dashboardIndex'])->name('agendamentosDashboard.index');
+    Route::get('/agendamentos_dashboard', [AgendamentoController::class, 'dashboardIndex'])->name('agendamentos_dashboard.index');
 
     // Resto das rotas de recursos
     Route::resource('servicos', ServicoController::class);
@@ -31,4 +31,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('gastos_variados', GastosVariadosController::class);
     Route::resource('dashboard', DashboardController::class);
 
+});
+
+Route::get('/navbar', function () {
+    return view('navbar.index');
 });

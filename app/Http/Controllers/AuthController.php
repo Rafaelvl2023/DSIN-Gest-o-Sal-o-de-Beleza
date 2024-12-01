@@ -44,7 +44,7 @@ class AuthController extends Controller
 
             // Se o usuário for admin, redireciona para o dashboard de administrador
             if ($usuario->status === 'admin') {
-                return redirect()->route('dashboard')->with('success', 'Bem-vindo à área administrativa!');
+                return redirect()->route('agendamentos_dashboard.index')->with('success', 'Bem-vindo à área administrativa!');
             }
 
             // Caso contrário, redireciona para a página de agendamentos
@@ -121,6 +121,6 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         // Redireciona para a página de login com uma mensagem
-        return redirect()->route('login.form')->with('error', 'Você não está logado.');
+        return redirect()->route('login')->with('error', 'Você não está logado.');
     }
 }
