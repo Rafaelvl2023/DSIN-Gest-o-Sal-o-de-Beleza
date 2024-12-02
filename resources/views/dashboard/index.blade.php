@@ -17,10 +17,8 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             background: linear-gradient(to bottom, #4e73df, #1c3d96);
-            /* Gradiente vertical */
             color: white;
             min-height: 100px;
-            /* Ajuste o valor conforme necessário */
         }
 
         .card-custom .card-body {
@@ -72,6 +70,41 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+        }
+
+        .filter-item {
+            display: inline-block;
+            margin-right: 15px;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            z-index: 1;
+            width: 200px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
         }
     </style>
     <style>
@@ -162,6 +195,64 @@
             </ul>
         </div>
     </nav>
+
+
+    <div class="container">
+        <form method="GET" action="/">
+            <div class="filter-item dropdown">
+                <button type="button" id="toggleButtonAno" class="btn btn-primary">
+                    Ano
+                </button>
+                <div id="checkboxOptionsAno" class="dropdown-content">
+                    <div class="form-check">
+                        <input type="checkbox" name="ano[]" value="2021" class="form-check-input">
+                        <label class="form-check-label" for="ano_2021">2021</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="ano[]" value="2022" class="form-check-input">
+                        <label class="form-check-label" for="ano_2022">2022</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="ano[]" value="2023" class="form-check-input">
+                        <label class="form-check-label" for="ano_2023">2023</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="ano[]" value="2024" class="form-check-input">
+                        <label class="form-check-label" for="ano_2024">2024</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-item dropdown">
+                <button type="button" id="toggleButtonMes" class="btn btn-primary">
+                    Mês
+                </button>
+                <div id="checkboxOptionsMes" class="dropdown-content">
+                    <div class="form-check">
+                        <input type="checkbox" name="mes[]" value="1" class="form-check-input">
+                        <label class="form-check-label" for="mes_1">Janeiro</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="mes[]" value="2" class="form-check-input">
+                        <label class="form-check-label" for="mes_2">Fevereiro</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="mes[]" value="3" class="form-check-input">
+                        <label class="form-check-label" for="mes_3">Março</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="mes[]" value="4" class="form-check-input">
+                        <label class="form-check-label" for="mes_4">Abril</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <button type="submit" class="btn btn-success mt-3">Filtrar</button>
+            </div>
+        </form>
+    </div>
+
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-3 mb-3">
@@ -362,8 +453,19 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#toggleButtonAno').click(function() {
+                $('#checkboxOptionsAno').stop().slideToggle(300).css('opacity', 1);
+                $('#checkboxOptionsMes').slideUp(300);
+            });
 
-
+            $('#toggleButtonMes').click(function() {
+                $('#checkboxOptionsMes').stop().slideToggle(300).css('opacity', 1);
+                $('#checkboxOptionsAno').slideUp(300);
+            });
+        });
+    </script>
 </body>
 
 </html>
