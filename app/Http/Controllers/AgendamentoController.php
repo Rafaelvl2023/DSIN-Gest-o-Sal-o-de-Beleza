@@ -126,7 +126,7 @@ class AgendamentoController extends Controller
     public function destroy(Agendamento $agendamento)
     {
         $agendamento->delete();
-        return redirect()->route('agendamentos.index')->with('success', 'Agendamento excluído com sucesso!');
+        return redirect()->route('agendamentos_dashboard.index')->with('success', 'Agendamento excluído com sucesso!');
     }
 
     public function getAllServicos()
