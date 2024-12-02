@@ -291,21 +291,21 @@
             labels: labels,
             datasets: [{
                     label: 'Gastos Fixos',
-                    data: [3000, 2500, 2800, 2700, 3200, 3100, 3000],
+                    data: [3000, 2500, 2800, 2700, 3200, 3100, 7000],
                     fill: false,
                     borderColor: 'rgb(255, 99, 132)',
                     tension: 0.1
                 },
                 {
                     label: 'Gastos Variáveis',
-                    data: [1500, 1700, 1800, 1600, 1550, 1500, 1450],
+                    data: [1500, 1700, 3800, 1600, 1550, 1500, 1450],
                     fill: false,
                     borderColor: 'rgb(54, 162, 235)',
                     tension: 0.1
                 },
                 {
                     label: 'Faturamento Mensal',
-                    data: [5000, 4500, 4700, 5200, 5000, 5100, 5400],
+                    data: [3000, 4500, 2700, 5200, 5000, 5100, 5400],
                     fill: false,
                     borderColor: 'rgb(255, 205, 86)',
                     tension: 0.1
