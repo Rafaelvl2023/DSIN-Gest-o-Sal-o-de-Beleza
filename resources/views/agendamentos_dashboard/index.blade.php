@@ -140,13 +140,36 @@
                             <td>
                                 <a href="{{ route('agendamentos.edit', $agendamento->id) }}"
                                     class="btn btn-warning btn-sm">Editar</a>
-                                <form action="{{ route('agendamentos.destroy', $agendamento->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
-                                </form>
+
+                                <!-- Botão para abrir o modal -->
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmModal{{ $agendamento->id }}">
+                                    Excluir
+                                </button>
+
+                                <!-- Modal de Confirmação -->
+                                <div class="modal fade" id="confirmModal{{ $agendamento->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="confirmModalLabel">Confirmar Exclusão</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Tem certeza que deseja excluir este agendamento? Esta ação não pode ser desfeita.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <form action="{{ route('agendamentos.destroy', $agendamento->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -164,6 +187,7 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </div>
+
 </body>
 
 </html>
