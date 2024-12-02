@@ -138,10 +138,58 @@
                             <td>{{ ucfirst($agendamento->status) }}</td>
                             <td>{{ $agendamento->observacoes }}</td>
                             <td>
-                                <a href="{{ route('agendamentos.edit', $agendamento->id) }}"
-                                    class="btn btn-warning btn-sm">Editar</a>
+                                <!-- Botão para abrir o modal de edição -->
+                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $agendamento->id }}">
+                                    Editar
+                                </button>
 
-                                <!-- Botão para abrir o modal -->
+                                <!-- Modal de Edição -->
+                                <div class="modal fade" id="editModal{{ $agendamento->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{ $agendamento->id }}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel{{ $agendamento->id }}">Editar Agendamento</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{ route('agendamentos.update', $agendamento->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="form-group">
+                                                        <label for="data_agendamento">Data do Agendamento</label>
+                                                        <input type="datetime-local" class="form-control" name="data_agendamento" value="{{ \Carbon\Carbon::parse($agendamento->data_agendamento)->format('Y-m-d\TH:i') }}">
+                                                    </div>
+
+                                                    <!-- Status -->
+                                                    <div class="form-group">
+                                                        <label for="status">Status</label>
+                                                        <select class="form-control" name="status">
+                                                            <option value="pendente" @if($agendamento->status == 'pendente') selected @endif>Pendente</option>
+                                                            <option value="confirmado" @if($agendamento->status == 'confirmado') selected @endif>Confirmado</option>
+                                                            <option value="cancelado" @if($agendamento->status == 'cancelado') selected @endif>Cancelado</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <!-- Observações -->
+                                                    <div class="form-group">
+                                                        <label for="observacoes">Observações</label>
+                                                        <textarea class="form-control" name="observacoes" rows="3">{{ $agendamento->observacoes }}</textarea>
+                                                    </div>
+
+                                                    <!-- Botões -->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                        <button type="submit" class="btn btn-warning">Salvar alterações</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Botão para excluir -->
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmModal{{ $agendamento->id }}">
                                     Excluir
                                 </button>
@@ -182,11 +230,11 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Bootstrap JS, jQuery e Popper.js -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </div>
+
 
 </body>
 
