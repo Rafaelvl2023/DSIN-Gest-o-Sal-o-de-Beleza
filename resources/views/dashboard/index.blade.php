@@ -149,7 +149,7 @@
                         <div class="d-flex align-items-center">
                             <i class="icon fas fa-users"></i>
                             <div>
-                                <h5 class="card-title">Usuários Ativos</h5>
+                                <h5 class="card-title">Clientes Cadastrados</h5>
                             </div>
                         </div>
                         <p class="value">1,234</p>
@@ -161,12 +161,12 @@
                 <div class="card card-custom">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <i class="icon fas fa-chart-line"></i>
+                            <i class="icon fas fa-chart-bar"></i>
                             <div>
-                                <h5 class="card-title">Vendas Mensais</h5>
+                                <h5 class="card-title">Gastos Fixos Mensais</h5>
                             </div>
                         </div>
-                        <p class="value">$ 4,567</p>
+                        <p class="value">$ 3,000</p>
                     </div>
                 </div>
             </div>
@@ -175,12 +175,12 @@
                 <div class="card card-custom">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <i class="icon fas fa-dollar-sign"></i>
+                            <i class="icon fas fa-exchange-alt"></i>
                             <div>
-                                <h5 class="card-title">Lucro Total</h5>
+                                <h5 class="card-title">Gastos Variáveis Mensais</h5>
                             </div>
                         </div>
-                        <p class="value">$ 12,345</p>
+                        <p class="value">$ 1,200</p>
                     </div>
                 </div>
             </div>
@@ -189,12 +189,12 @@
                 <div class="card card-custom">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <i class="icon fas fa-box-open"></i>
+                            <i class="icon fas fa-calendar-check"></i>
                             <div>
-                                <h5 class="card-title">Produtos em Estoque</h5>
+                                <h5 class="card-title">Agendamentos Realizados</h5>
                             </div>
                         </div>
-                        <p class="value">2,345</p>
+                        <p class="value">450</p>
                     </div>
                 </div>
             </div>
@@ -206,12 +206,12 @@
                 <div class="card card-custom">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <i class="icon fas fa-truck"></i>
+                            <i class="icon fas fa-check-circle"></i>
                             <div>
-                                <h5 class="card-title">Pedidos Pendentes</h5>
+                                <h5 class="card-title">Serviços Concluídos</h5>
                             </div>
                         </div>
-                        <p class="value">345</p>
+                        <p class="value">350</p>
                     </div>
                 </div>
             </div>
@@ -220,12 +220,12 @@
                 <div class="card card-custom">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <i class="icon fas fa-calendar-check"></i>
+                            <i class="icon fas fa-clock"></i>
                             <div>
-                                <h5 class="card-title">Tarefas Concluídas</h5>
+                                <h5 class="card-title">Serviços Pendentes</h5>
                             </div>
                         </div>
-                        <p class="value">45</p>
+                        <p class="value">100</p>
                     </div>
                 </div>
             </div>
@@ -234,12 +234,12 @@
                 <div class="card card-custom">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <i class="icon fas fa-comments"></i>
+                            <i class="icon fas fa-dollar-sign"></i>
                             <div>
-                                <h5 class="card-title">Mensagens Não Lidas</h5>
+                                <h5 class="card-title">Faturamento Mensal</h5>
                             </div>
                         </div>
-                        <p class="value">12</p>
+                        <p class="value">$ 15,000</p>
                     </div>
                 </div>
             </div>
@@ -248,12 +248,12 @@
                 <div class="card card-custom">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <i class="icon fas fa-cogs"></i>
+                            <i class="icon fas fa-money-bill-wave"></i>
                             <div>
-                                <h5 class="card-title">Configurações Sistema</h5>
+                                <h5 class="card-title">Lucro Líquido do Mês</h5>
                             </div>
                         </div>
-                        <p class="value">12</p>
+                        <p class="value">$ 5,000</p>
                     </div>
                 </div>
             </div>
