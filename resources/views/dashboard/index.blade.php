@@ -267,7 +267,7 @@
                                 <h5 class="card-title">Clientes Cadastrados</h5>
                             </div>
                         </div>
-                        <p class="value">1,234</p>
+                        <p class="value">234</p>
                     </div>
                 </div>
             </div>
@@ -280,7 +280,7 @@
                                 <h5 class="card-title">Gastos Fixos Mensais</h5>
                             </div>
                         </div>
-                        <p class="value">$ 3,000</p>
+                        <p class="value">$ 3.000,00</p>
                     </div>
                 </div>
             </div>
@@ -293,7 +293,7 @@
                                 <h5 class="card-title">Gastos Variáveis Mensais</h5>
                             </div>
                         </div>
-                        <p class="value">$ 1,200</p>
+                        <p class="value">$ 1.200,00</p>
                     </div>
                 </div>
             </div>
@@ -348,7 +348,7 @@
                                 <h5 class="card-title">Faturamento Mensal</h5>
                             </div>
                         </div>
-                        <p class="value">$ 15,000</p>
+                        <p class="value">$ 15.000,00</p>
                     </div>
                 </div>
             </div>
@@ -361,7 +361,7 @@
                                 <h5 class="card-title">Lucro Líquido do Mês</h5>
                             </div>
                         </div>
-                        <p class="value">$ 5,000</p>
+                        <p class="value">$ 5.000,00</p>
                     </div>
                 </div>
             </div>
