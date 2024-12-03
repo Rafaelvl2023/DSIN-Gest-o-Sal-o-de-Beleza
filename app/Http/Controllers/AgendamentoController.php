@@ -83,6 +83,7 @@ class AgendamentoController extends Controller
         }
     }
 
+
     public function edit(Agendamento $agendamento)
     {
         $data_agendamento = Carbon::parse($agendamento->data_agendamento);

@@ -316,6 +316,7 @@
             aria-label="Toggle navigation">
             <i class="fas fa-bars text-white"></i>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item ml-auto">
@@ -333,6 +334,7 @@
     <div class="total">
         <div class="form-container container col-md-6 mt-5">
             <h4 class="text-center mb-4">Agende seu serviço agora</h4>
+
             <form method="POST" action="{{ route('agendamentos.store') }}">
                 @csrf
                 <input type="hidden" name="status" value="pendente">
@@ -364,6 +366,7 @@
                     </div>
                 </div>
             </form>
+
             <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -386,6 +389,38 @@
                     </div>
                 </div>
             </div>
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+            <script>
+                $(document).ready(function() {
+                    var responseData = @json(session('responseData') ?? null);
+
+                    if (responseData && responseData.modal) {
+                        function showModal(responseData) {
+                            if (responseData.modal) {
+                                $('#message').text(responseData.message);
+                                $('#suggestionMessage').text("Sugestão de data: " + responseData.sugestao_data);
+
+                                $('#modal').modal('show');
+
+                                $('#acceptDateButton').off('click').on('click', function() {
+                                    $('input[name="data_agendamento"]').val(responseData.sugestao_data);
+
+                                    $('#modal').modal('hide');
+                                });
+
+                                $('#rejectDateButton').off('click').on('click', function() {
+                                    $('#modal').modal('hide');
+                                });
+                            }
+                        }
+
+                        showModal(responseData);
+                    }
+                });
+            </script>
         </div>
         <div class="container" style="background-color: rgba(255, 255, 255, 0.842);">
             <h4 class="text-center my-4">Agendamentos Cadastrados</h4>
@@ -435,11 +470,14 @@
                     @endif
                 </tbody>
             </table>
+
             <div class="d-flex justify-content-center">
                 {{ $agendamentos->links('pagination::bootstrap-4') }}
             </div>
+
             <h5 class="textWhats">Qualquer dúvida, entre em contato comigo pelo WhatsApp!!!</h5>
         </div>
+
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -467,42 +505,48 @@
                 </div>
             </div>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <script>
+            $('#editModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var agendamentoId = button.data('agendamento-id');
+                var dataAgendamento = button.data('data-agendamento');
+                var statusAgendamento = button.data('status-agendamento');
+                var observacoesAgendamento = button.data('observacoes-agendamento');
+
+                var formAction = '{{ route('agendamentos.update', ':id') }}'.replace(':id', agendamentoId);
+                $('#editForm').attr('action', formAction);
+
+                var formattedDate = moment(dataAgendamento).format('YYYY-MM-DDTHH:mm');
+                $('#modalDataAgendamento').val(formattedDate);
+
+                $('#modalStatus').val(statusAgendamento);
+                $('#modalObservacoes').val(observacoesAgendamento);
+            });
+        </script>
+        <script>
+            if (document.getElementById('flash-message')) {
+                setTimeout(function() {
+                    document.getElementById('flash-message').classList.add('fade-out');
+
+                    setTimeout(function() {
+                        document.getElementById('flash-message').style.display = 'none';
+                    }, 1000);
+                }, 3000);
+            }
+        </script>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-    <script>
-        $('#editModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var agendamentoId = button.data('agendamento-id');
-            var dataAgendamento = button.data('data-agendamento');
-            var statusAgendamento = button.data('status-agendamento');
-            var observacoesAgendamento = button.data('observacoes-agendamento');
-
-            var formAction = '{{ route('agendamentos.update', ':id') }}'.replace(':id', agendamentoId);
-            $('#editForm').attr('action', formAction);
-
-            var formattedDate = moment(dataAgendamento).format('YYYY-MM-DDTHH:mm');
-            $('#modalDataAgendamento').val(formattedDate);
-
-            $('#modalStatus').val(statusAgendamento);
-            $('#modalObservacoes').val(observacoesAgendamento);
-        });
-    </script>
-    <script>
-        if (document.getElementById('flash-message')) {
-            setTimeout(function() {
-                document.getElementById('flash-message').classList.add('fade-out');
-
-                setTimeout(function() {
-                    document.getElementById('flash-message').style.display = 'none';
-                }, 1000);
-            }, 3000);
-        }
-    </script>
     <script>
         $('#editarModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
@@ -536,33 +580,6 @@
             const checkboxList = document.getElementById('checkboxList');
             if (!dropdownButton.contains(event.target) && !checkboxList.contains(event.target)) {
                 checkboxList.classList.remove('open');
-            }
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            var responseData = @json(session('responseData') ?? null);
-
-            if (responseData && responseData.modal) {
-                function showModal(responseData) {
-                    if (responseData.modal) {
-                        $('#message').text(responseData.message);
-                        $('#suggestionMessage').text("Sugestão de data: " + responseData.sugestao_data);
-
-                        $('#modal').modal('show');
-
-                        $('#acceptDateButton').off('click').on('click', function() {
-                            $('input[name="data_agendamento"]').val(responseData.sugestao_data);
-
-                            $('#modal').modal('hide');
-                        });
-
-                        $('#rejectDateButton').off('click').on('click', function() {
-                            $('#modal').modal('hide');
-                        });
-                    }
-                }
-                showModal(responseData);
             }
         });
     </script>
