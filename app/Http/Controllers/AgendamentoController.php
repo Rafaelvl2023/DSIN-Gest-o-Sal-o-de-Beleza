@@ -31,6 +31,7 @@ class AgendamentoController extends Controller
     public function create()
     {
         $servicos = Servico::all();
+
         return view('agendamentos.create', compact('servicos'));
     }
 
@@ -81,7 +82,6 @@ class AgendamentoController extends Controller
             return back()->with('error', 'Erro ao criar agendamento: ' . $e->getMessage());
         }
     }
-
 
     public function edit(Agendamento $agendamento)
     {
