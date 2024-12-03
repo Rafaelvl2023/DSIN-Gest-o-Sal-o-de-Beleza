@@ -112,7 +112,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">Cliente</th>
+                        <th scope="col">Id Cliente</th>
                         <th scope="col">Serviços</th>
                         <th scope="col">Data do Agendamento</th>
                         <th scope="col">Status</th>
