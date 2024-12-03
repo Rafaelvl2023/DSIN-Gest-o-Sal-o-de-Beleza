@@ -57,7 +57,7 @@ class AgendamentoController extends Controller
                 ->whereBetween('data_agendamento', [$inicio_semana, $fim_semana])
                 ->get();
 
-            if ($agendamentos_na_mesma_semana->count() >= 1) {
+            if ($agendamentos_na_mesma_semana->count() > 2) {
                 $primeiro_agendamento = Carbon::parse($agendamentos_na_mesma_semana->first()->data_agendamento);
 
                 $responseData = [
@@ -82,7 +82,6 @@ class AgendamentoController extends Controller
             return back()->with('error', 'Erro ao criar agendamento: ' . $e->getMessage());
         }
     }
-
 
     public function edit(Agendamento $agendamento)
     {

@@ -112,7 +112,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">Id Cliente</th>
+                        <th scope="col">Cliente</th>
                         <th scope="col">Serviços</th>
                         <th scope="col">Data do Agendamento</th>
                         <th scope="col">Status</th>
@@ -123,7 +123,7 @@
                 <tbody>
                     @foreach ($agendamentos as $agendamento)
                         <tr>
-                            <td>{{ $agendamento->usuario_id}}</td>
+                            <td class="text-center">{{ $agendamento->usuario->nome }}</td>
                             <td>
                                 @foreach (json_decode($agendamento->servico_ids) as $servicoId)
                                     @php
