@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,14 +53,11 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-mainbg">
-        <!-- Botão de alternância visível apenas em telas pequenas -->
         <button class="navbar-toggler ml-auto d-md-none" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
             <i class="fas fa-bars text-white"></i>
         </button>
-
-        <!-- Itens da Navbar -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -103,10 +100,8 @@
     <div id="servicos" class="content-section text-center">
         <div class="container mt-5">
             <h2 class="text-center mb-4">Cadastrar Novo Serviço</h2>
-
             <form method="POST" action="{{ route('servicos.store') }}">
                 @csrf
-
                 <div class="row">
                     <div class="col-md-8 form-group">
                         <label for="nome">Nome:</label>
@@ -183,12 +178,10 @@
                         @endforeach
                     </tbody>
                 </table>
-
                 <div class="d-flex justify-content-center">
                     {{ $servicos->links('pagination::bootstrap-5') }}
                 </div>
             </div>
-
         </div>
         <script>
             document.getElementById('preco').addEventListener('input', function(e) {
