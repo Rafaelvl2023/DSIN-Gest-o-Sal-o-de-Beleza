@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -59,7 +59,6 @@
             aria-label="Toggle navigation">
             <i class="fas fa-bars text-white"></i>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -104,7 +103,6 @@
             <h2 class="text-center mb-4">Cadastrar Novo Gasto Fixo</h2>
             <form action="{{ route('gastos_fixos.store') }}" method="POST">
                 @csrf
-
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label for="nome">Nome:</label>
@@ -123,7 +121,6 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-
                     <div class="col-md-2 form-group">
                         <label for="categoria">Categoria:</label>
                         <select name="categoria" id="categoria" class="form-control border-info" required>
@@ -155,15 +152,12 @@
                             class="form-control border-info" required>
                     </div>
                 </div>
-
                 <div class="row">
-
                     <div class="col-md-12 form-group">
                         <label for="descricao">Descrição:</label>
                         <textarea name="descricao" id="descricao" class="form-control border-info"></textarea>
                     </div>
                 </div>
-
                 <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
             </form>
         </div>
@@ -205,12 +199,10 @@
                     @endforeach
                 </tbody>
             </table>
-
             <div class="d-flex justify-content-center">
                 {{ $gastosFixos->links('pagination::bootstrap-4') }}
             </div>
         </div>
-
         <script>
             document.getElementById('precogastosFixos').addEventListener('input', function(e) {
                 let value = e.target.value.replace(/\D/g, '');
@@ -225,7 +217,6 @@
                     e.target.value = '';
                 }
             });
-
             document.getElementById('precogastosFixos').addEventListener('keydown', function(e) {
                 if (e.key === "Backspace" || e.key === "Delete") {
                     let value = e.target.value.replace('R$', '').replace(/\D/g,
