@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -106,6 +106,10 @@
         .btn-primary:hover {
             background-color: #0056b3;
         }
+
+        .modal-content {
+            padding: 20px;
+        }
     </style>
     <style>
         .navbar-mainbg {
@@ -195,65 +199,64 @@
             </ul>
         </div>
     </nav>
-
-
-    <div class="container">
-        <form method="GET" action="/">
-            <div class="filter-item dropdown">
-                <button type="button" id="toggleButtonAno" class="btn btn-primary">
-                    Ano
-                </button>
-                <div id="checkboxOptionsAno" class="dropdown-content">
-                    <div class="form-check">
-                        <input type="checkbox" name="ano[]" value="2021" class="form-check-input">
-                        <label class="form-check-label" for="ano_2021">2021</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" name="ano[]" value="2022" class="form-check-input">
-                        <label class="form-check-label" for="ano_2022">2022</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" name="ano[]" value="2023" class="form-check-input">
-                        <label class="form-check-label" for="ano_2023">2023</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" name="ano[]" value="2024" class="form-check-input">
-                        <label class="form-check-label" for="ano_2024">2024</label>
-                    </div>
-                </div>
+    <div class="container ml-auto">
+        <div class="row justify-content-end">
+            <div class="col-md-2">
+                <button id="toggleFiltros" class="btn btn-primary mt-3" data-toggle="modal"
+                    data-target="#filtrosModal">Mostrar Filtros</button>
             </div>
-
-            <div class="filter-item dropdown">
-                <button type="button" id="toggleButtonMes" class="btn btn-primary">
-                    Mês
-                </button>
-                <div id="checkboxOptionsMes" class="dropdown-content">
-                    <div class="form-check">
-                        <input type="checkbox" name="mes[]" value="1" class="form-check-input">
-                        <label class="form-check-label" for="mes_1">Janeiro</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" name="mes[]" value="2" class="form-check-input">
-                        <label class="form-check-label" for="mes_2">Fevereiro</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" name="mes[]" value="3" class="form-check-input">
-                        <label class="form-check-label" for="mes_3">Março</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" name="mes[]" value="4" class="form-check-input">
-                        <label class="form-check-label" for="mes_4">Abril</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6">
-                <button type="submit" class="btn btn-success mt-3">Filtrar</button>
-            </div>
-        </form>
+        </div>
     </div>
-
-    <div class="container mt-5">
+    <div class="modal fade" id="filtrosModal" tabindex="-1" role="dialog" aria-labelledby="filtrosModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filtrosModalLabel">Filtros</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="ano" class="form-label">Ano</label>
+                                <select name="ano[]" id="ano" class="form-select" multiple>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="mes" class="form-label">Mês</label>
+                                <select name="mes[]" id="mes" class="form-select" multiple>
+                                    <option value="1">Janeiro</option>
+                                    <option value="2">Fevereiro</option>
+                                    <option value="3">Março</option>
+                                    <option value="4">Abril</option>
+                                    <option value="5">Maio</option>
+                                    <option value="6">Junho</option>
+                                    <option value="7">Julho</option>
+                                    <option value="8">Agosto</option>
+                                    <option value="9">Setembro</option>
+                                    <option value="10">Outubro</option>
+                                    <option value="11">Novembro</option>
+                                    <option value="12">Dezembro</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary">Filtrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
         <div class="row">
             <div class="col-md-3 mb-3">
                 <div class="card card-custom">
@@ -448,11 +451,12 @@
 
         const myChart = new Chart(document.getElementById('myChart'), config);
     </script>
-
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#toggleButtonAno').click(function() {
@@ -463,6 +467,13 @@
             $('#toggleButtonMes').click(function() {
                 $('#checkboxOptionsMes').stop().slideToggle(300).css('opacity', 1);
                 $('#checkboxOptionsAno').slideUp(300);
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#toggleFiltros').click(function() {
+                $('#filtros').toggleClass('show');
             });
         });
     </script>
