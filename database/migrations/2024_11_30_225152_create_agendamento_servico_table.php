@@ -12,16 +12,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('agendamento_servico', function (Blueprint $table) {
-            // Definindo as colunas para os IDs
             $table->unsignedBigInteger('agendamento_id');
             $table->unsignedBigInteger('servico_id');
             $table->timestamps();
 
-            // Definindo as chaves estrangeiras
             $table->foreign('agendamento_id')->references('id')->on('agendamentos')->onDelete('cascade');
             $table->foreign('servico_id')->references('id')->on('servicos')->onDelete('cascade');
 
-            // Definindo a chave primária composta pelas colunas agendamento_id e servico_id
             $table->primary(['agendamento_id', 'servico_id']);
         });
     }
