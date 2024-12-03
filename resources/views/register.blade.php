@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>Registre-se</title>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
@@ -216,7 +216,6 @@
             <p>Já tem uma conta? <a href="{{ route('login.form') }}">Faça login</a></p>
         </div>
     </div>
-
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             const messages = document.querySelectorAll('.message');
