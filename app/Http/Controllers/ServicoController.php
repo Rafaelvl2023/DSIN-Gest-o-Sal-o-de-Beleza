@@ -11,11 +11,9 @@ class ServicoController extends Controller
     public function index()
     {
         $agendamentos = Agendamento::paginate(5);
-        // Pega todos os serviços cadastrados
-        $servicos = Servico::paginate(5); // 10 itens por página
+        $servicos = Servico::paginate(5);
 
-        // Retorna a view do dashboard com os dados dos serviços
-        return view('servicos.index', compact('servicos','agendamentos'));  // compact('servicos') deve passar a variável corretamente
+        return view('servicos.index', compact('servicos','agendamentos'));
     }
 
     public function create()
@@ -25,7 +23,6 @@ class ServicoController extends Controller
 
     public function store(Request $request)
     {
-        // Validação dos dados de entrada
         $request->validate([
             'nome' => 'required|string|max:255',
             'duracao' => 'required|date_format:H:i',
@@ -33,17 +30,14 @@ class ServicoController extends Controller
             'descricao' => 'nullable|string',
         ]);
 
-        // Processa o preço para garantir que esteja no formato correto
         $preco = str_replace(['R$', ' ', '.'], '', $request->preco);
         $preco = floatval($preco);
 
-        // Corrige a duração para o formato correto
         $duracao = $request->duracao;
         if (strpos($duracao, ':') === 2) {
             $duracao .= ':00';
         }
 
-        // Criação do serviço
         Servico::create([
             'nome' => $request->nome,
             'duracao' => $duracao,
