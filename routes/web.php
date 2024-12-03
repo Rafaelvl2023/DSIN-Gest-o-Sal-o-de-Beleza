@@ -22,12 +22,10 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/agendamentos_dashboard', [AgendamentoController::class, 'dashboardIndex'])->name('agendamentos_dashboard.index');
-
     Route::resource('servicos', ServicoController::class);
     Route::resource('gastos_fixos', GastosFixosController::class);
     Route::resource('gastos_variados', GastosVariadosController::class);
     Route::resource('dashboard', DashboardController::class);
-
 });
 
 Route::get('/navbar', function () {
