@@ -15,7 +15,7 @@
         }
 
         body {
-            background-image: url(https://img.freepik.com/fotos-gratis/renderizacao-3d-de-fundo-de-textura-hexagonal_23-2150796421.jpg);
+            background-image: url(https://institutoanahickmann.com.br/wp-content/uploads/2021/11/cab.jpg);
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
@@ -25,7 +25,7 @@
             display: flex;
             justify-content: center;
             width: 100%;
-            margin-top: 140px;
+            margin-top: 90px;
         }
 
         .card {
