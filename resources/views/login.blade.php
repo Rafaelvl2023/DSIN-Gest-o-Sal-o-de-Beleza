@@ -165,7 +165,7 @@
 <body>
     <div class="conteiner">
         <div class="card">
-            <h1>Login</h1>
+            <h1>Entrar</h1>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="label-float">
