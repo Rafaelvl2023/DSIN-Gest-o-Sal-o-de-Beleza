@@ -536,7 +536,7 @@
                     setTimeout(function() {
                         document.getElementById('flash-message').style.display = 'none';
                     }, 1000);
-                }, 3000);
+                }, 6000);
             }
         </script>
     </div>
