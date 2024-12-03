@@ -169,11 +169,11 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="label-float">
-                    <input type="email" name="email" required>
+                    <input type="email" name="email" required autocomplete="off">
                     <label for="email">Email:</label>
                 </div>
                 <div class="label-float">
-                    <input type="senha" name="senha" required>
+                    <input type="password" name="senha" required autocomplete="off">
                     <label for="senha">Senha:</label>
                 </div>
                 <div class="button">
