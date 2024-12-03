@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,40 +52,43 @@
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-md navbar-mainbg">
-        <!-- Botão de alternância visível apenas em telas pequenas -->
         <button class="navbar-toggler ml-auto d-md-none" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
             <i class="fas fa-bars text-white"></i>
         </button>
-
-        <!-- Itens da Navbar -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('agendamentos_dashboard.index') }}'">
+                    <a class="nav-link" href="javascript:void(0);"
+                        onclick="window.location.href = '{{ route('agendamentos_dashboard.index') }}'">
                         <i class="far fa-address-book"></i> Agendamentos
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('dashboard.index') }}'">
+                    <a class="nav-link" href="javascript:void(0);"
+                        onclick="window.location.href = '{{ route('dashboard.index') }}'">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('gastos_fixos.index') }}'">
+                    <a class="nav-link" href="javascript:void(0);"
+                        onclick="window.location.href = '{{ route('gastos_fixos.index') }}'">
                         <i class="far fa-clone"></i> Gastos Fixos
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('gastos_variados.index') }}'">
+                    <a class="nav-link" href="javascript:void(0);"
+                        onclick="window.location.href = '{{ route('gastos_variados.index') }}'">
                         <i class="far fa-chart-bar"></i> Gastos Variados
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);" onclick="window.location.href = '{{ route('servicos.index') }}'">
+                    <a class="nav-link" href="javascript:void(0);"
+                        onclick="window.location.href = '{{ route('servicos.index') }}'">
                         <i class="far fa-chart-bar"></i> Serviços
                     </a>
                 </li>
@@ -103,16 +107,13 @@
     <div id="gastosVariados" class="content-section text-center">
         <div class="container mt-5">
             <h2 class="text-center mb-4">Cadastrar Novo Gasto Variado</h2>
-
             @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
-
             <form action="{{ route('gastos_variados.store') }}" method="POST">
                 @csrf
-
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="nome">Nome do Gasto:</label>
@@ -122,7 +123,6 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-
                     <div class="col-md-2 form-group">
                         <label for="valor">Valor:</label>
                         <div class="input-group">
@@ -136,7 +136,6 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-
                     <div class="col-md-2 form-group">
                         <label for="categoria">Categoria:</label>
                         <select id="categoria" name="categoria" class="form-control border-info" required>
@@ -174,7 +173,6 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-
                     <div class="col-md-2 form-group">
                         <label for="data">Data:</label>
                         <input type="date" id="data" name="data" class="form-control border-info"
@@ -184,7 +182,6 @@
                         @enderror
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <label for="descricao">Descrição (Opcional):</label>
@@ -219,50 +216,50 @@
                             <td>{{ \Carbon\Carbon::parse($dado->data)->format('d/m/Y') }}</td>
                             <td>{{ $dado->descricao }}</td>
                             <td>
-                                <a href="{{ route('gastos_variados.edit', $dado->id) }}" class="btn btn-warning btn-sm">Editar</a>
-                                <form action="{{ route('gastos_variados.destroy', $dado->id) }}" method="POST" style="display:inline;">
+                                <a href="{{ route('gastos_variados.edit', $dado->id) }}"
+                                    class="btn btn-warning btn-sm">Editar</a>
+                                <form action="{{ route('gastos_variados.destroy', $dado->id) }}" method="POST"
+                                    style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
                                 </form>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-
             <div class="d-flex justify-content-center">
                 {{ $gastosVariados->links('pagination::bootstrap-4') }}
             </div>
         </div>
+    </div>
+    <script>
+        document.getElementById('precogastosVariados').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
 
+            if (value) {
+                let formattedValue = value.replace(/(\d)(\d{2})$/, '$1,$2');
 
-        <script>
-            document.getElementById('precogastosVariados').addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
+                formattedValue = formattedValue.replace(/(?=(\d{3})+(\d{2}))/, '$1.');
 
-                if (value) {
-                    let formattedValue = value.replace(/(\d)(\d{2})$/, '$1,$2');
+                e.target.value = `R$ ${formattedValue}`;
+            } else {
+                e.target.value = '';
+            }
+        });
+        document.getElementById('precogastosVariados').addEventListener('keydown', function(e) {
+            if (e.key === "Backspace" || e.key === "Delete") {
+                let value = e.target.value.replace('R$', '').replace(/\D/g,
+                    '');
 
-                    formattedValue = formattedValue.replace(/(?=(\d{3})+(\d{2}))/, '$1.');
-
-                    e.target.value = `R$ ${formattedValue}`;
-                } else {
+                if (!value) {
                     e.target.value = '';
                 }
-            });
-
-            document.getElementById('precogastosVariados').addEventListener('keydown', function(e) {
-                if (e.key === "Backspace" || e.key === "Delete") {
-                    let value = e.target.value.replace('R$', '').replace(/\D/g,
-                        '');
-
-                    if (!value) {
-                        e.target.value = '';
-                    }
-                }
-            });
-        </script>
-    </div>
+            }
+        });
+    </script>
 </body>
+
 </html>
