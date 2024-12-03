@@ -165,7 +165,7 @@
 <body>
     <div class="conteiner">
         <div class="card">
-            <h1>Cadastro</h1>
+            <h1>Cadastre-se</h1>
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="label-float">
